@@ -1,0 +1,166 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Snippit Template (RAW)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- vanilla css version -->
+    <link rel="stylesheet" type="text/css" href="css/vanilla.css">
+</head>
+
+<body>
+    <!-- This is the template for the home search view with a Snipp card -->
+    <!-- navigation -->
+    <nav>
+        <ul>
+            <li class="active"><a class="brand" href="#">Snippit</a></li>
+            <li>
+                <a href="html5resources.html">HTML5 Resources</a>
+            </li>
+        </ul>
+    </nav>
+    <!-- end navigation -->
+    <!-- toggleable sidebar -->
+    <input type="checkbox" name="favorites-toggle" id="favorites-toggle">
+    <label for="favorites-toggle"></label>
+    <aside id="favorites-bar">
+        <div class="favorites-container">
+            <h2>Favorites</h2>
+            <div class="favorites-cards">
+                <ul>
+                    <li class="active">
+                        <div class="snippit-shortcut">
+                            <span class="term">&lt; Term &gt;</span>
+                            <ul class="actions">
+                                <li>
+                                    <a href="searchResults.html">View</a>
+                                </li>
+                                <li>
+                                    <a href="#">Copy</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </aside>
+    <!-- end sidebar -->
+    <main>
+        <!-- brand banner -->
+        <section id="banner" class="brand" draggable="false" contentEditable="false">
+            <h1>Snippit</h1>
+        </section>
+        <!-- end banner -->
+        <!-- search bar section -->
+        <div id="search-area" role="search" contentEditable="false" draggable="false" spellcheck="false" dir="ltr">
+            <fieldset role="search">
+                <form id="search">
+                    <input type="text" placeholder="Search HTML5 Terms" spellcheck="false" value="Your Searched Term" tabindex="0" autofocus>
+                    <!-- <input type="submit" value="Search" tabindex="1"> -->
+                    <a href="searchResults.html" id="simulation">Search</a>
+                </form>
+            </fieldset>
+        </div>
+        <section id="beginner" class="call-to-action" contentEditable="false" draggable="false" dir="ltr">
+            <h4>
+                New to HTML5? <a href="html5resources.html">Click here!</a>
+            </h4>
+        </section>
+        <hr class="not-visible">
+        <!-- Results -->
+        <section id="results-section" contentEditable="false" draggable="false" spellcheck="false" dir="ltr" translate="yes">
+            <!-- show and hide loader -->
+            <div id="loader">
+                <div class="loader-wrapper">
+                    <div class="load-glyph">
+                    </div>
+                    <div class="load-glyph">
+                    </div>
+                    <!-- <h3>Searching</h3> -->
+                </div>
+            </div>
+            <!-- End loader -->
+            <div id="result-field" class="not-visible">
+                <h2>Result:</h2>
+                <!-- snipp card -->
+                <div class="snipp-card" draggable="true">
+                    <div class="snipp-card-wrapper">
+                        <h3>[Searched Term]</h3>
+                        <!-- code snippet -->
+                        <div class="code-container">
+                            <code contentEditable="false">
+                            &lt;!-- This is some code usage --&gt;
+                            <br>
+                            &lt;term&gt; Some usage of term &lt;/term&gt;
+                        </code>
+                        </div>
+                        <!-- end code -->
+                        <!-- toggle details -->
+                        <input type="checkbox" name="details-toggle" id="details-toggle">
+                        <label for="details-toggle"></label>
+                        <!-- details shown and hidden on button toggle-->
+                        <div class="details">
+                            <dl>
+                                <dt>Type</dt>
+                                <dd>This is the type of the term.</dd>
+                                <dt>Definition</dt>
+                                <dd>This is the definition of the term</dd>
+                                <dt>Source</dt>
+                                <dd><a href="#" target="_blank">w3schools</a></dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+                <!-- end snipp card -->
+                <!-- Other Sources -->
+                <div class="results-list">
+                    <h3>More Information</h3>
+                    <ul>
+                        <li>
+                            <a href="#" target="_blank">Result 1</a>
+                            <p>A preview of some information &hellip;</p>
+                        </li>
+                        <li>
+                            <a href="#" target="_blank">Result 2</a>
+                            <p>A preview of some information &hellip;</p>
+                        </li>
+                        <li>
+                            <a href="#" target="_blank">Result N</a>
+                            <p>A preview of some information &hellip;</p>
+                        </li>
+                    </ul>
+                </div>
+                <!-- End other sources -->
+            </div>
+        </section>
+    </main>
+    <!-- simulation scripts for interaction search -->
+    <script>
+    (function() {
+
+        // append a class to html if it is a touch screen
+        var is_touch = ("ontouchstart" in window || window.DocumentTouch && document instanceof DocumentTouch);
+        console.log(is_touch);
+
+        var root = document.getElementsByTagName('html')[0];
+
+        if (!is_touch) {
+            root.setAttribute('class', 'no-touch');
+        } else {
+            root.setAttribute('class', 'touch');
+        }
+
+    })();
+
+    setTimeout( function() {
+        document.getElementById('loader').className = 'not-visible';
+        document.getElementsByTagName('hr')[0].className = 'fade-in';
+        document.getElementById('result-field').className = 'fade-in';
+        document.getElementById('result-field').scrollIntoView();
+    }, 3000);
+    </script>
+</body>
+
+</html>

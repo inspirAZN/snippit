@@ -1,0 +1,139 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snippit Template (RAW)</title>
+    <!-- vanilla css version -->
+    <link rel="stylesheet" type="text/css" href="css/vanilla.css">
+</head>
+
+<body>
+    <!-- This is the template for the home search view with a Snipp card -->
+    <!-- navigation -->
+    <nav>
+        <ul>
+            <li>
+                <a class="brand" href="index.html">Snippit</a>
+            </li>
+            <li class="active">
+                <a href="#">HTML5 Resources</a>
+            </li>
+        </ul>
+    </nav>
+    <!-- end navigation -->
+    <!-- toggleable sidebar -->
+    <input type="checkbox" name="favorites-toggle" id="favorites-toggle">
+    <label for="favorites-toggle"></label>
+    <aside id="favorites-bar">
+        <div class="favorites-container">
+            <h2>Favorites</h2>
+            <div class="favorites-cards">
+                <ul>
+                    <li class="active">
+                        <div class="snippit-shortcut">
+                            <span class="term">&lt; Term &gt;</span>
+                            <ul class="actions">
+                                <li>
+                                    <a href="searchResults.html">View</a>
+                                </li>
+                                <li>
+                                    <a href="#">Copy</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </aside>
+    <!-- end sidebar -->
+    <main id="resources">
+        <header>
+            <h1> &lt;HTML5 Resources&gt;</h1>
+        </header>
+        <section>
+            <h2>HTML5 can be intimidating at first.  Here's some resources to get you started.</h2>
+            <div class="resource-container">
+                <ul class="resource-list">
+                    <li class="resource">
+                        <figure>
+                            <img src="http://placehold.it/100x100" alt="some resource">
+                            <figcaption>
+                                <a href="http://www.w3schools.com/">W3Schools</a>
+                                <p>
+                                    W3schools is an online resource for a multitude of web developement references and tutorials. It has a huge user base!
+                                </p>
+                            </figcaption>
+                        </figure>
+                    </li>
+                    <li class="resource">
+                        <figure>
+                            <img src="http://placehold.it/100x100" alt="some resource">
+                            <figcaption>
+                                <a href="http://www.w3schools.com/">W3Schools</a>
+                                <p>
+                                    W3schools is an online resource for a multitude of web developement references and tutorials. It has a huge user base!
+                                </p>
+                            </figcaption>
+                        </figure>
+                    </li>
+                    <li class="resource">
+                        <figure>
+                            <img src="http://placehold.it/100x100" alt="some resource">
+                            <figcaption>
+                                <a href="http://www.w3schools.com/">W3Schools</a>
+                                <p>
+                                    W3schools is an online resource for a multitude of web developement references and tutorials. It has a huge user base!
+                                </p>
+                            </figcaption>
+                        </figure>
+                    </li>
+                    <li class="resource">
+                        <figure>
+                            <img src="http://placehold.it/100x100" alt="some resource">
+                            <figcaption>
+                                <a href="http://www.w3schools.com/">W3Schools</a>
+                                <p>
+                                    W3schools is an online resource for a multitude of web developement references and tutorials. It has a huge user base!
+                                </p>
+                            </figcaption>
+                        </figure>
+                    </li>
+                    <li class="resource">
+                        <figure>
+                            <img src="http://placehold.it/100x100" alt="some resource">
+                            <figcaption>
+                                <a href="http://www.w3schools.com/">W3Schools</a>
+                                <p>
+                                    W3schools is an online resource for a multitude of web developement references and tutorials. It has a huge user base!
+                                </p>
+                            </figcaption>
+                        </figure>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </main>
+    <!-- simulation scripts for interaction search -->
+    <script>
+    (function() {
+
+        // append a class to html if it is a touch screen
+        var is_touch = ("ontouchstart" in window || window.DocumentTouch && document instanceof DocumentTouch);
+        console.log(is_touch);
+
+        var root = document.getElementsByTagName('html')[0];
+
+        if (!is_touch) {
+            root.setAttribute('class', 'no-touch');
+        } else {
+            root.setAttribute('class', 'touch');
+        }
+
+    })();
+    </script>
+</body>
+
+</html>
