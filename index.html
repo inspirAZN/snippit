@@ -141,24 +141,7 @@
         </section>
     </main>
     <!-- simulation scripts for interaction search -->
-    <script>
-    (function() {
-
-        // append a class to html if it is a touch screen
-        var is_touch = ("ontouchstart" in window || window.DocumentTouch && document instanceof DocumentTouch);
-        console.log(is_touch);
-
-        var root = document.getElementsByTagName('html')[0];
-
-        if (!is_touch) {
-            root.setAttribute('class', 'no-touch');
-        } else {
-            root.setAttribute('class', 'touch');
-        }
-
-    })();
-   
-    </script>
+    <script src="js/touch_detect.js"></script>
     <script>
 
         var db = new Firebase('https://incandescent-heat-9502.firebaseio.com/#-Jv5OUlnCoG-h1AYax4g|2fedc1225d2ab628cd7a312b5c9170c0');
