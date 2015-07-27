@@ -59,7 +59,18 @@
                 <ul class="resource-list">
                     <li class="resource">
                         <figure>
-                            <img src="http://placehold.it/100x100" alt="some resource">
+                            <img src="html5rocks logo.png" alt="HTML5 Rocks">
+                            <figcaption>
+                                <a href="http://www.html5rocks.com/en/">HTML5 Rocks</a>
+                                <p>
+                                    HTML5 Rocks is an awesome resource for for developers looking to put HTML5 to use today, including information on specific features and when to use them in your apps.
+                                </p>
+                            </figcaption>
+                        </figure>
+                    </li>
+                    <li class="resource">
+                        <figure>
+                            <img src="w3school logo.png" alt="W3Schools">
                             <figcaption>
                                 <a href="http://www.w3schools.com/">W3Schools</a>
                                 <p>
@@ -70,53 +81,72 @@
                     </li>
                     <li class="resource">
                         <figure>
-                            <img src="http://placehold.it/100x100" alt="some resource">
+                            <img src="youtube logo.png" alt="YouTube">
                             <figcaption>
-                                <a href="http://www.w3schools.com/">W3Schools</a>
+                                <a href="https://www.youtube.com/user/thenewboston/playlists">YouTube</a>
                                 <p>
-                                    W3schools is an online resource for a multitude of web developement references and tutorials. It has a huge user base!
+									blah blah blah blah
+								</p>
+                            </figcaption>
+                        </figure>
+                    </li>
+                    <li class="resource">
+                        <figure>
+                            <img src="smash magazine.png" alt="Smash Magazine">
+                            <figcaption>
+                                <a href="http://www.smashingmagazine.com/">Smash Magazine</a>
+                                <p>
+									The guys over at Smashing Magazine released this handy, printable HTML5 cheat sheet, which lists all currently supported tags, their descriptions, attributes and their support in HTML 4.
                                 </p>
                             </figcaption>
                         </figure>
                     </li>
                     <li class="resource">
                         <figure>
-                            <img src="http://placehold.it/100x100" alt="some resource">
+                            <img src="codeacademy logo.jpg" alt="CodeAcademy">
                             <figcaption>
-                                <a href="http://www.w3schools.com/">W3Schools</a>
+                                <a href="https://www.codecademy.com/">CodeAcademy</a>
                                 <p>
-                                    W3schools is an online resource for a multitude of web developement references and tutorials. It has a huge user base!
+									CodeAcademy is an education company. But not one in the way you might think. We're committed to building the best learning experience inside and out, making Codecademy the best place for our team to learn, teach, and create the online learning experience of the future.
                                 </p>
                             </figcaption>
                         </figure>
                     </li>
-                    <li class="resource">
+					<li class="resource">
                         <figure>
-                            <img src="http://placehold.it/100x100" alt="some resource">
+                            <img src="mdn logo.png" alt="Mozilla Development Network">
                             <figcaption>
-                                <a href="http://www.w3schools.com/">W3Schools</a>
+                                <a href="https://developer.mozilla.org/en-US/">Mozilla Development Network</a>
                                 <p>
-                                    W3schools is an online resource for a multitude of web developement references and tutorials. It has a huge user base!
+									HTML5 & Friends on the Mozilla Developer Network offers a great selection of information, demonstrations, tools and resources on the programming language. The web page is clean and extremely easy to navigate, using symbols, lists and a simple grid to lead to you the desired information.
                                 </p>
                             </figcaption>
                         </figure>
-                    </li>
-                    <li class="resource">
-                        <figure>
-                            <img src="http://placehold.it/100x100" alt="some resource">
-                            <figcaption>
-                                <a href="http://www.w3schools.com/">W3Schools</a>
-                                <p>
-                                    W3schools is an online resource for a multitude of web developement references and tutorials. It has a huge user base!
-                                </p>
-                            </figcaption>
-                        </figure>
-                    </li>
                 </ul>
             </div>
         </section>
     </main>
-    <script src="js/touch_detect.js"></script>
+    <!-- simulation scripts for interaction search -->
+    <script>
+    (function() {
+
+        // append a class to html if it is a touch screen
+        var is_touch = ("ontouchstart" in window || window.DocumentTouch && document instanceof DocumentTouch);
+        console.log(is_touch);
+
+        var root = document.getElementsByTagName('html')[0];
+
+        if (!is_touch) {
+            root.setAttribute('class', 'no-touch');
+        } else {
+            root.setAttribute('class', 'touch');
+        }
+
+    })();
+    </script>
 </body>
 
 </html>
+
+
+
