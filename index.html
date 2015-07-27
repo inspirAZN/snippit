@@ -59,12 +59,12 @@
             <fieldset role="search">
                 <form id="search">
                     <input type="text" placeholder="Search HTML5 Terms" spellcheck="false" value="" tabindex="0" autofocus>
-                    <!-- <input type="submit" value="Search" tabindex="1"> -->
-                    <a href="searchResults.html" id="simulation">Search</a>
+                    <input type="submit" value="Search" tabindex="1">
+                    <!-- <a href="searchResults.html" id="simulation">Search</a> -->
                 </form>
             </fieldset>
         </div>
-        <section id="beginner" class="call-to-action" contentEditable="false" draggable="false" dir="ltr">
+        <section id="beginner" class="call-to-action" draggable="false" dir="ltr">
             <h4>
                 New to HTML5? <a href="html5resources.html">Click here!</a>
             </h4>
@@ -83,7 +83,7 @@
                 </div>
             </div>
             <!-- End loader -->
-            <div id="result-field" class="not-visible">
+            <div id="result-field" class="">
                 <h2>Result:</h2>
                 <!-- snipp card -->
                 <div class="snipp-card" draggable="true">
@@ -91,11 +91,12 @@
                         <h3>[Searched Term]</h3>
                         <!-- code snippet -->
                         <div class="code-container">
-                            <code contentEditable="false">
-                            &lt;!-- This is some code usage --&gt;
-                            <br>
-                            &lt;term&gt; Some usage of term &lt;/term&gt;
-                        </code>
+                            <button onclick="copyToClipboard()">Copy</button>
+                            <code>
+                                &lt;!-- This is some code usage --&gt;
+                                <br>
+                                &lt;term&gt; Some usage of term &lt;/term&gt;
+                            </code>
                         </div>
                         <!-- end code -->
                         <!-- toggle details -->
@@ -140,12 +141,28 @@
             </div>
         </section>
     </main>
-    <!-- simulation scripts for interaction search -->
     <script src="js/touch_detect.js"></script>
     <script>
+    function copyToClipboard() {
+        var map = {
+            '&lt;': '<',
+            '&gt;': '>',
+            '<br>': '\n'
+        }
 
-        var db = new Firebase('https://incandescent-heat-9502.firebaseio.com/#-Jv5OUlnCoG-h1AYax4g|2fedc1225d2ab628cd7a312b5c9170c0');
+        var code_elem = document.getElementsByTagName('code')[0];
+        var code = code_elem.innerHTML;
 
+        code = code.replace(/&lt;|&gt;|<br>/gi, function(matched) {
+            return map[matched];
+        });
+
+        window.prompt("Copy to clipboard: Ctrl+C, Enter", code);
+
+    }
+    </script>
+    <script>
+    var db = new Firebase('https://incandescent-heat-9502.firebaseio.com/');
     </script>
 </body>
 
