@@ -2,20 +2,20 @@
 <html>
 <head>
 	<title> Form submit </title>
-	 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script> 
+	 <script src="js/jquery-1.11.3.min.js"></script> 
 	</head>
 <body>
-<form name = "schema" class = "schema" method= "POST">
+<form id="myform" name = "schema" class = "schema" method= "POST">
 Tag name: <input type="text" name="tagname" placeholder="<b>"><br> <br>
 Type: <input type="text" name="type"><br> <br> 
 Definition: <input type="text" name="definition"><br> <br>
-Usage: <textarea rows="2" cols="40" name="textarea" placeholder="MAKES THINGS BOLD">
+Usage: <textarea rows="20" cols="80" name="textarea" placeholder="MAKES THINGS BOLD">
 </textarea> <br> <br>
 Keyword: <input type = "text" name = "keyword" placeholder="bold"><br> <br>
 Attribute: <input type = "text" name = "attribute"><br> <br>
 
-
-<button onClick="Submit()"> Submit </button>
+<input type="submit" value="Submit">
+<!-- <button onClick="Submit()"> Submit </button> -->
 
 
 
@@ -29,25 +29,35 @@ var schema = {
     'tag_name': };
   var form = document.getElementsByTagName('form')[0];
   console.log(form); */
-  $document.ready(function() {
-  	  console.log( "ready!" );
+  $(document).ready(function() { 
+	console.log( "ready!" );
 
+	 $('form').submit(function(event){
 
-	var jsonArray = {};
-	 var formData = $("#myform").serializeArray();
-	 $.each(formData, function() {
-	 if (jsonArray[this.name]) {
-	 if (!jsonArray[this.name].push) {
-	 jsonArray[this.name] = [jsonArray[this.name]];
-	 }
-	 jsonArray[this.name].push(this.value || '');
-	 } else {
-	 jsonArray[this.name] = this.value || '';
-	 }
+	 	event.preventDefault();
+	 	var jsonArray = {};
+	 	var formData = $("#myform").serializeArray();
+	 	$.each(formData, function() {
+	 		if (jsonArray[this.name]) {
+	 			if (!jsonArray[this.name].push) {
+	 				jsonArray[this.name] = [jsonArray[this.name]];
+	 			}
+	 			jsonArray[this.name].push(this.value || '');
+	 		} else {
+	 			jsonArray[this.name] = this.value || '';
+	 		}
 
+	 	});
+
+	 	jsonArray.attribute
+		 console.log(jsonArray);
 	 });
-	 console.log(jsonArray);
-	  	$('form').submit(function(event){
+
+
+  });
+  	  
+
+
   		
   		/*var formData = {
   			'tagname'		$('input[tagname=tagname]').val(),
@@ -59,10 +69,6 @@ var schema = {
 
   		};*/
 
-
-  	}
-
-  }
 
 </script>
 
