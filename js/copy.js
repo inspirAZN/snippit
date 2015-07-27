@@ -12,6 +12,6 @@ function copyToClipboard() {
         return map[matched];
     });
 
-    window.prompt("Copy to clipboard: Ctrl+C, Enter", code);
+    window.prompt("Press Ctrl+C or Command + Enter to Copy to clipboard", code);
 
 }

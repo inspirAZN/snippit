@@ -387,6 +387,7 @@ main hr {
     -webkit-transition: all .25s;
     transition: all .25s;
     box-shadow: inset 5px 0px 15px -6px #000000;
+    overflow-y: auto;
 }
 
 #favorites-toggle + label:before {
@@ -422,7 +423,6 @@ main hr {
     position: relative;
     padding-left: 15px;
     padding-right: 15px;
-    overflow-y: auto;
 }
 
 #favorites-bar .favorites-cards {
@@ -438,10 +438,19 @@ main hr {
     list-style: none;
 }
 
-#favorites-bar .favorites-container ul li {
+#favorites-bar .favorites-container ul li.snippit {
     position: relative;
     height: 45px;
     width: 100%;
+    margin: 10px 0;
+}
+
+#favorites-bar .favorites-container ul .snippit-dropzone {
+    border: 3px dashed #ffffff;
+    line-height: 45px;
+    vertical-align: middle;
+    text-align: center;
+    font-weight: lighter;
 }
 
 #favorites-bar .favorites-container ul li.active:before {
@@ -459,7 +468,6 @@ main hr {
 #favorites-bar li .snippit-shortcut {
     background: #ffffff;
     position: relative;
-    left: 10px;
 }
 
 #favorites-bar .snippit-shortcut .term {

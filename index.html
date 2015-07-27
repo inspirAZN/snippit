@@ -30,7 +30,12 @@
             <h2>Favorites</h2>
             <div class="favorites-cards">
                 <ul>
-                    <li class="active">
+                    <li>
+                        <div class="snippit-dropzone">
+                            Drag and Drop to Favorite
+                        </div>
+                    </li>
+                    <li class="snippit">
                         <div class="snippit-shortcut">
                             <span class="term">&lt; Term &gt;</span>
                             <ul class="actions">
@@ -39,6 +44,9 @@
                                 </li>
                                 <li>
                                     <a href="#">Copy</a>
+                                </li>
+                                <li>
+                                    <a href="#">&times;</a>
                                 </li>
                             </ul>
                         </div>
@@ -141,6 +149,7 @@
             </div>
         </section>
     </main>
+    <script src="js/jquery-1.11.3.min.js"></script>
     <script src="js/touch_detect.js"></script>
     <script src="js/copy.js"></script>
     <script>
