@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html>
+<head>
+	<title> Form submit </title>
+	 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script> 
+	</head>
 <body>
-<form class = "Schema">
-Tag name: <input type="text" name="Tag name" placeholder="<b>"><br> <br>
-Type: <input type="text" name="Type"><br> <br> 
-Definition: <input type="text" name="Definition"><br> <br>
-Usage: <textarea rows="2" cols="40" placeholder="MAKES THINGS BOLD">
+<form name = "schema" class = "schema" method= "POST">
+Tag name: <input type="text" name="tagname" placeholder="<b>"><br> <br>
+Type: <input type="text" name="type"><br> <br> 
+Definition: <input type="text" name="definition"><br> <br>
+Usage: <textarea rows="2" cols="40" name="textarea" placeholder="MAKES THINGS BOLD">
 </textarea> <br> <br>
-Keyword: <input type = "text" name = "Keyword" placeholder="bold"><br> <br>
-Attribute: <input type = "text" name = "Attribute"><br> <br>
+Keyword: <input type = "text" name = "keyword" placeholder="bold"><br> <br>
+Attribute: <input type = "text" name = "attribute"><br> <br>
 
 
 <button onClick="Submit()"> Submit </button>
@@ -17,15 +21,49 @@ Attribute: <input type = "text" name = "Attribute"><br> <br>
 
 </form>
 <script> 
-  // var formData = ("form.login").serializeObject();
+  /*var formData = ("form.login").serializeObject();
           // console.log(formData);  
 
 for()    
-  var schema = {
-    'tag_name': 
-  };
+var schema = {
+    'tag_name': };
   var form = document.getElementsByTagName('form')[0];
-  console.log(form);
+  console.log(form); */
+  $document.ready(function() {
+  	  console.log( "ready!" );
+
+
+	var jsonArray = {};
+	 var formData = $("#myform").serializeArray();
+	 $.each(formData, function() {
+	 if (jsonArray[this.name]) {
+	 if (!jsonArray[this.name].push) {
+	 jsonArray[this.name] = [jsonArray[this.name]];
+	 }
+	 jsonArray[this.name].push(this.value || '');
+	 } else {
+	 jsonArray[this.name] = this.value || '';
+	 }
+
+	 });
+	 console.log(jsonArray);
+	  	$('form').submit(function(event){
+  		
+  		/*var formData = {
+  			'tagname'		$('input[tagname=tagname]').val(),
+  			'type'			$('input[type=type]').val(),
+  			'definition'	$('input[definition=definition]').val(),
+  			'textarea'		$('input[textarea=textarea]').val(),
+  			'keyword'		$('input[keyword=keyword]').val(),
+  			'attribute'		$('input[attribute=attribute]').val(),
+
+  		};*/
+
+
+  	}
+
+  }
+
 </script>
 
 
