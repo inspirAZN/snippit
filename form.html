@@ -49,7 +49,9 @@ var schema = {
 
 	 	});
 
-	 	jsonArray.attribute
+	 	var a = jsonArray.keyword;
+	 	 a  = a.split(",");
+	 	 jsonArray.keyword = a;
 		 console.log(jsonArray);
 	 });
 
