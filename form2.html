@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title> Form submit </title>
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <style>
+    div {
+        margin: 50px;
+        display: block;
+    }
+    form {
+    	display: block;
+    	margin: 50px;
+    }
+    </style>
+</head>
+
+<body>
+    <div>
+        Tag Attributes:
+        <br>
+        <ul class="attributes">
+            <li>
+                Name:
+                <input type="text" name="name" placeholder="test_attr_name_1" required> Values:
+                <input type="text" name="value" placeholder="test_attr_val_1, test_attr_val_2, test_attr_val_3" required>
+            </li>
+        </ul>
+        <button class="add_field_button">Add More Attributes</button>
+        <br>
+        <br>
+    </div>
+    <form id="myform" name="schema" class="schema" method="POST">
+        Tag name:
+        <input type="text" name="tagname" placeholder="figcaption">
+        <br>
+        <br> Type:
+        <input type="text" name="type" placeholder="html5 tag">
+        <br>
+        <br> Definition:
+        <input type="text" name="definition" value="some definition">
+        <br>
+        <br> Usage:
+        <textarea rows="20" cols="80" name="textarea" placeholder="exact code usage">
+        </textarea>
+        <br>
+        <br> Keyword:
+        <input type="text" name="keyword" placeholder="display,graphic,wow,mmuch,css">
+        <br>
+        <br>
+        <input type="submit" value="Submit">
+        <!-- <button onClick="Submit()"> Submit </button> -->
+    </form>
+    <script>
+    /*var formData = ("form.login").serializeObject();
+                          // console.log(formData);  
+
+                for()    
+                var schema = {
+                    'tag_name': };
+                  var form = document.getElementsByTagName('form')[0];
+                  console.log(form); */
+    $(document).ready(function() {
+        console.log("ready!");
+
+        var max_fields = 10; //maximum input boxes allowed
+        var wrapper = $(".input_fields_wrap"); //Fields wrapper
+        var add_button = $(".add_field_button"); //Add button ID
+        var wrapper2 = $(".input_fields_wrap2");
+        var attr_num = 1;
+        var x = 1; //initlal text box count
+        $(add_button).click(function(e) { //on add input button click
+            e.preventDefault();
+            if (x < max_fields) { //max input box allowed
+                // x++; //text box increment
+                // $(wrapper).append('<div><input type="text" name="mytext[]"/><<a href="#" class="remove_field">Remove</a></div>'); //add input box
+                // $(wrapper2).append('<div><input type="text" name="mytext[]2"/><<a href="#" class="remove_field">Remove</a></div>');
+                var html = '<li>Name:<input type="text" name="name' + attr_num + '">Values:<input type="text" name="value' + attr_num + '"></li>';
+
+                $('.attributes').append(html);
+                attr_num++;
+            }
+        });
+
+        $(wrapper).on("click", ".remove_field", function(e) { //user click on remove text
+            e.preventDefault();
+            $(this).parent('div').remove();
+            x--;
+
+        });
+
+        $('form').submit(function(event) {
+
+            event.preventDefault();
+            var jsonArray = {};
+            var formData = $("#myform").serializeArray();
+            $.each(formData, function() {
+                if (jsonArray[this.name]) {
+                    if (!jsonArray[this.name].push) {
+                        jsonArray[this.name] = [jsonArray[this.name]];
+                    }
+                    jsonArray[this.name].push(this.value || '');
+                } else {
+                    jsonArray[this.name] = this.value || '';
+                }
+
+            });
+
+            var a = jsonArray.keyword;
+            a = a.split(",");
+            jsonArray.keyword = a;
+            // console.log(jsonArray);
+
+
+            var attribute_inputs = $('.attributes :input');
+            var attributes = [];
+
+            for (var i = 0; i < attribute_inputs.length; i++) {
+                if (i % 2 !== 0) {
+                    continue;
+                }
+                var temp = {};
+                var name = attribute_inputs[i].value;
+
+                var values = attribute_inputs[i + 1].value.split(',');
+                temp.name = name;
+                temp.values = values;
+
+                attributes.push(temp);
+            }
+            jsonArray.attributes = attributes;
+
+            console.log(jsonArray);
+
+        });
+
+
+
+
+
+
+    });
+
+
+
+
+    /*var formData = {
+    	'tagname'		$('input[tagname=tagname]').val(),
+    	'type'			$('input[type=type]').val(),
+    	'definition'	$('input[definition=definition]').val(),
+    	'textarea'		$('input[textarea=textarea]').val(),
+    	'keyword'		$('input[keyword=keyword]').val(),
+    	'attribute'		$('input[attribute=attribute]').val(),
+
+    };*/
+    </script>
+</body>
+
+</html>

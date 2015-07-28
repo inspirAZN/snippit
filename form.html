@@ -2,36 +2,17 @@
 <html>
 <head>
 	<title> Form submit </title>
-	 
 	 <script src="js/jquery-1.11.3.min.js"></script> 
-	
 	</head>
 <body>
-
 <form id="myform" name = "schema" class = "schema" method= "POST">
 Tag name: <input type="text" name="tagname" placeholder="<b>"><br> <br>
-
 Type: <input type="text" name="type"><br> <br> 
-
 Definition: <input type="text" name="definition"><br> <br>
-
 Usage: <textarea rows="20" cols="80" name="textarea" placeholder="MAKES THINGS BOLD">
 </textarea> <br> <br>
-
 Keyword: <input type = "text" name = "keyword" placeholder="bold"><br> <br>
-
-Attribute: <br> <br> 
-<ul class="attributes">
-	<li>
-		Name:<input type="text" name="name">
-	   	Values:<input type="text" name="value">
-	</li>
-</ul>
-<button class="add_field_button">Add More Fields</button>
-
-
-
-
+Attribute: <input type = "text" name = "attribute"><br> <br>
 
 <input type="submit" value="Submit">
 <!-- <button onClick="Submit()"> Submit </button> -->
@@ -51,30 +32,6 @@ var schema = {
   $(document).ready(function() { 
 	console.log( "ready!" );
 
-    var max_fields      = 10; //maximum input boxes allowed
-    var wrapper         = $(".input_fields_wrap"); //Fields wrapper
-    var add_button      = $(".add_field_button"); //Add button ID
-    var wrapper2		= $(".input_fields_wrap2");
-    var attr_num = 1;
-    var x = 1; //initlal text box count
-    $(add_button).click(function(e){ //on add input button click
-        e.preventDefault();
-        if(x < max_fields){ //max input box allowed
-            // x++; //text box increment
-            // $(wrapper).append('<div><input type="text" name="mytext[]"/><<a href="#" class="remove_field">Remove</a></div>'); //add input box
-            // $(wrapper2).append('<div><input type="text" name="mytext[]2"/><<a href="#" class="remove_field">Remove</a></div>');
-            var html = '<li>Name:<input type="text" name="name'+attr_num+'">Values:<input type="text" name="value'+attr_num+'"></li>';
-
-            $('.attributes').append(html);
-            attr_num++;
-        }
-    });
-    
-    $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
-        e.preventDefault(); $(this).parent('div').remove(); x--;
-
-    });
-
 	 $('form').submit(function(event){
 
 	 	event.preventDefault();
@@ -92,30 +49,11 @@ var schema = {
 
 	 	});
 
-	 	console.log(jsonArray)
-
 	 	var a = jsonArray.keyword;
 	 	 a  = a.split(",");
 	 	 jsonArray.keyword = a;
 		 console.log(jsonArray);
-		 console.log(attr_num);
-
-		 for(i = 0; i < 1; i++){
-		 	var b = jsonArray.name;
-		 	var c = jsonArray.value;
-		 	var d = $.extend(true,{},b,c);
-		 	jsonArray.attribute = d;
-		 	console.log(d);
-		 }
-
-
-
-
 	 });
-
-
-
-
 
 
   });
