@@ -141,7 +141,7 @@
 
             /* Clear inputs after submitting */
             $('#attr_id').find("input, textarea").val("");
-            $('#myform').find("input, textarea").val("");
+            $(this).closest('form').find("input[type=text], textarea").val("");
         });
 
 
