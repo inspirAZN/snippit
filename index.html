@@ -24,18 +24,18 @@
     <!-- end navigation -->
     <!-- toggleable sidebar -->
     <input type="checkbox" name="favorites-toggle" id="favorites-toggle">
-    <label for="favorites-toggle"></label>
+    <label class="new" for="favorites-toggle"></label>
     <aside id="favorites-bar">
         <div class="favorites-container">
             <h2>Favorites</h2>
             <div class="favorites-cards">
                 <ul>
-                    <li>
+                    <!-- <li>
                         <div class="snippit-dropzone">
                             Drag and Drop to Favorite
                         </div>
-                    </li>
-                    <li class="snippit">
+                    </li> -->
+                    <!-- <li class="snippit">
                         <div class="snippit-shortcut">
                             <span class="term">&lt; Term &gt;</span>
                             <ul class="actions">
@@ -50,7 +50,7 @@
                                 </li>
                             </ul>
                         </div>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
         </div>
@@ -66,7 +66,7 @@
         <div id="search-area" role="search" contentEditable="false" draggable="false" spellcheck="false" dir="ltr">
             <fieldset role="search">
                 <form id="search">
-                    <input type="text" placeholder="Search HTML5 Terms" spellcheck="false" value="" tabindex="0" autofocus>
+                    <input type="text" placeholder="Search HTML5 Tags" spellcheck="false" value="" tabindex="0" autofocus>
                     <input type="submit" value="Search" tabindex="1">
                     <!-- <a href="searchResults.html" id="simulation">Search</a> -->
                 </form>
@@ -91,12 +91,13 @@
                 </div>
             </div>
             <!-- End loader -->
-            <div id="result-field" class="">
+            <div id="result-field" class="visible">
                 <h2>Result:</h2>
                 <!-- snipp card -->
-                <div class="snipp-card" draggable="true">
+                <div class="snipp-card">
                     <div class="snipp-card-wrapper">
-                        <h3>[Searched Term]</h3>
+                        <button class="fav-button">Favorite</button>
+                        <h3>Searched</h3>
                         <!-- code snippet -->
                         <div class="code-container">
                             <button onclick="copyToClipboard()">Copy</button>
@@ -117,15 +118,15 @@
                                 <dd>This is the type of the term.</dd>
                                 <dt>Definition</dt>
                                 <dd>This is the definition of the term</dd>
-                                <dt>Source</dt>
-                                <dd><a href="#" target="_blank">w3schools</a></dd>
+                                <!-- <dt>Source</dt>
+                                <dd><a href="#" target="_blank">w3schools</a></dd> -->
                             </dl>
                         </div>
                     </div>
                 </div>
                 <!-- end snipp card -->
                 <!-- Other Sources -->
-                <div class="results-list">
+                <!-- <div class="results-list">
                     <h3>More Information</h3>
                     <ul>
                         <li>
@@ -144,18 +145,19 @@
                             <a href="#">View More</a>
                         </li>
                     </ul>
-                </div>
+                </div> -->
                 <!-- End other sources -->
             </div>
         </section>
     </main>
     <script src="js/jquery-1.11.3.min.js"></script>
+    <script>
+    // var db = new Firebase('https://incandescent-heat-9502.firebaseio.com/');
+    </script>
     <script src="js/touch_detect.js"></script>
+    <script src="js/favorite_cntrl.js"></script>
     <script src="js/copy.js"></script>
     <script src="js/search.js"></script>
-    <script>
-    var db = new Firebase('https://incandescent-heat-9502.firebaseio.com/');
-    </script>
 </body>
 
 </html>
