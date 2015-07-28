@@ -3,6 +3,7 @@
 
 <head>
     <title> Form submit </title>
+    <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
     <script src="js/jquery-1.11.3.min.js"></script>
     <style>
     div {
@@ -20,7 +21,7 @@
     <div>
         Tag Attributes:
         <br>
-        <ul class="attributes">
+        <ul class="attributes" id="attr_id">
             <li>
                 Name:
                 <input type="text" name="name" placeholder="test_attr_name_1" required> Values:
@@ -31,6 +32,7 @@
         <br>
         <br>
     </div>
+
     <form id="myform" name="schema" class="schema" method="POST">
         Tag name:
         <input type="text" name="tagname" placeholder="figcaption">
@@ -42,8 +44,7 @@
         <input type="text" name="definition" value="some definition">
         <br>
         <br> Usage:
-        <textarea rows="20" cols="80" name="textarea" placeholder="exact code usage">
-        </textarea>
+        <textarea rows="20" cols="80" name="textarea" placeholder="exact code usage"></textarea>
         <br>
         <br> Keyword:
         <input type="text" name="keyword" placeholder="display,graphic,wow,mmuch,css">
@@ -53,6 +54,7 @@
         <!-- <button onClick="Submit()"> Submit </button> -->
     </form>
     <script>
+    var myDataRef = new Firebase('https://snippit134.firebaseio.com/');
     /*var formData = ("form.login").serializeObject();
                           // console.log(formData);  
 
@@ -129,10 +131,17 @@
 
                 attributes.push(temp);
             }
+
             jsonArray.attributes = attributes;
 
             console.log(jsonArray);
+            
+            /* Save data to firebase */
+            myDataRef.push(jsonArray);
 
+            /* Clear inputs after submitting */
+            $('#attr_id').find("input, textarea").val("");
+            $('#myform').find("input, textarea").val("");
         });
 
 
