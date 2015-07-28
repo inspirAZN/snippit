@@ -3,7 +3,7 @@
 
 <head>
     <title> Form submit </title>
-    <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+    <script src='js/firebase.js'></script>
     <script src="js/jquery-1.11.3.min.js"></script>
     <style>
     div {
@@ -135,7 +135,7 @@
             jsonArray.attributes = attributes;
 
             console.log(jsonArray);
-            
+
             /* Save data to firebase */
             myDataRef.push(jsonArray);
 
