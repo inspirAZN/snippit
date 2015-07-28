@@ -132,7 +132,6 @@ $(function() {
         } else {
         	// no favorites
         	$('#favorites-bar').addClass('no-favorites');
-
         	$('#favorites-bar ul').append(no_favs);
         } 
 
