@@ -53,6 +53,11 @@
         <input type="submit" value="Submit">
         <!-- <button onClick="Submit()"> Submit </button> -->
     </form>
+
+    <div>
+    <ul id="tagDisplay"></ul>
+    </div>
+
     <script>
     var myDataRef = new Firebase('https://snippit134.firebaseio.com/');
     /*var formData = ("form.login").serializeObject();
@@ -85,12 +90,14 @@
             }
         });
 
+        /*
         $(wrapper).on("click", ".remove_field", function(e) { //user click on remove text
             e.preventDefault();
             $(this).parent('div').remove();
             x--;
 
         });
+        */
 
         $('form').submit(function(event) {
 
@@ -163,6 +170,36 @@
     	'attribute'		$('input[attribute=attribute]').val(),
 
     };*/
+
+    /* Read firebase */
+
+    function refreshUI(list) {
+        var lis = '';
+        for (var i = 0; i < list.length; i++) {
+            lis += '<li data-key="' + list[i].key + '">' + list[i].tagname + '</li>';
+        };
+        document.getElementById('tagDisplay').innerHTML = lis;
+    };
+ 
+    // this will get fired on inital load as well as when ever there is a change in the data
+    myDataRef.on("value", function(snapshot) {
+        var data = snapshot.val();
+        var list = [];
+        for (var key in data) {
+            if (data.hasOwnProperty(key)) {
+                tagname = data[key].tagname ? data[key].tagname : '';
+                if (name.trim().length > 0) {
+                    list.push({
+                        tagname: tagname,
+                        key: key
+                    })
+                }
+            }
+        }
+        // refresh the UI
+        refreshUI(list);
+    });
+
     </script>
 </body>
 
