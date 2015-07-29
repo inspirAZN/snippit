@@ -188,7 +188,7 @@
         for (var key in data) {
             if (data.hasOwnProperty(key)) {
                 tagname = data[key].tagname ? data[key].tagname : '';
-                if (name.trim().length > 0) {
+                if (tagname.trim().length > 0) {
                     list.push({
                         tagname: tagname,
                         key: key
