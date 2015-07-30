@@ -2,11 +2,12 @@
 var no_favs = createTemplate('templates/no_favorites.html', null);
 
 // some useful variables
-var prompted = 0;
+var prompted, searched = 0;
 
 // binds the click function after it is rendered
 function bindActions() {
-    $('.snippit-shortcut .delete-this').click(function(ev) {
+    // bind the delete function
+    $('.snippit-shortcut').on('click', '.delete-this', function(ev) {
         ev.preventDefault();
         // delete from local storage
         var tag_name = $(this).closest('.snippit-shortcut').children('.term').text();
@@ -19,13 +20,16 @@ function bindActions() {
         }
     });
 
+    // bind the copy function
     $('.snippit-shortcut').on('click', '.copy-this', function(ev) {
+        ev.preventDefault();
+
+        // get the index of the clicked element
         var index = $(this).closest('.snippit').index();
         var num_favs = $('.snippit').size();
 
         // stop from prompting for each button after
         if (prompted === 0) {
-            // get the index of the clicked element
             // get the usage from local storage
             var tag_name = $(this).closest('.snippit-shortcut').children('.term').text();
             // turn it into json to access fields
@@ -34,14 +38,38 @@ function bindActions() {
 
             window.prompt("Press Ctrl+C or Command + Enter to Copy to clipboard", usage);
             prompted = index + 1;
-        } else if(prompted >= 1) {
+        } else if (prompted >= 1) {
             prompted++;
         }
-        if(prompted === num_favs){
+        if (prompted === num_favs) {
             prompted = 0;
         }
+    });
 
+    // bind the view function
+    $('.snippit-shortcut').on('click', '.view-this', function(ev) {
+        ev.preventDefault();
 
+        // get the index of the clicked element
+        var index = $(this).closest('.snippit').index();
+        var num_favs = $('.snippit').size();
+
+        // stop from searching for each button after
+        if (searched === 0) {
+            // get the term
+            var search = $(this).closest('.snippit-shortcut').children('.term').text();
+            // just put the term in the search bar and submit the form
+            $('#search :text').val(search);
+            $('#search :submit').click();
+
+            searched = index + 1;
+
+        } else if (searched >= 1) {
+            searched++;
+        }
+        if (searched === num_favs) {
+            searched = 0;
+        }
     });
 }
 
@@ -140,7 +168,9 @@ if (typeof(Storage) !== "undefined") {
             cur = JSON.parse(cur);
             // skip firebase stuff
             if (cur.tag_name) {
-
+                if( i === 1 ) {
+                    $('label[for="favorites-toggle"]').addClass('in');
+                }
                 // insert the card
                 addToBar(cur.tag_name, true);
             }

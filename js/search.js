@@ -13,6 +13,8 @@ $(function() {
         // ajax call.  remove loader and display result after
         var search_str = $('#search :text').val();
         performSearch(search_str).done(displayResults);
+
+        console.log('searching for ' + search_str);
     });
 
 
