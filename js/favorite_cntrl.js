@@ -1,6 +1,9 @@
 // message if no favorites
 var no_favs = createTemplate('templates/no_favorites.html', null);
 
+// some useful variables
+var prompted = 0;
+
 // binds the click function after it is rendered
 function bindActions() {
     $('.snippit-shortcut .delete-this').click(function(ev) {
@@ -16,14 +19,28 @@ function bindActions() {
         }
     });
 
-    $('.snippit-shortcut .copy-this').click(function(ev) {
-        // get the usage from local storage
-        var tag_name = $(this).closest('.snippit-shortcut').children('.term').text();
-        // turn it into json to access fields
-        var usage = localStorage.getItem(tag_name);
-        usage = JSON.parse(usage).usage;
+    $('.snippit-shortcut').on('click', '.copy-this', function(ev) {
+        var index = $(this).closest('.snippit').index();
+        var num_favs = $('.snippit').size();
 
-        window.prompt("Press Ctrl+C or Command + Enter to Copy to clipboard", usage);
+        // stop from prompting for each button after
+        if (prompted === 0) {
+            // get the index of the clicked element
+            // get the usage from local storage
+            var tag_name = $(this).closest('.snippit-shortcut').children('.term').text();
+            // turn it into json to access fields
+            var usage = localStorage.getItem(tag_name);
+            usage = JSON.parse(usage).usage;
+
+            window.prompt("Press Ctrl+C or Command + Enter to Copy to clipboard", usage);
+            prompted = index + 1;
+        } else if(prompted >= 1) {
+            prompted++;
+        }
+        if(prompted === num_favs){
+            prompted = 0;
+        }
+
 
     });
 }
