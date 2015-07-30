@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title> Search </title>
+    <script src='js/firebase.js'></script>
+    <script src="js/jquery-1.11.3.min.js"></script>
+
+</head>
+
+<body>
+
+<form>
+    <input type="text" id="searchBar" name="searchBar" placeholder="Enter search term.">
+</form>
+
+    <script>
+        var ref = new Firebase('https://snippit134.firebaseio.com/');
+        var results = [];
+
+        $('form').submit(function(event) {
+            event.preventDefault();
+            results = [];
+
+            var search_str = document.getElementById("searchBar").value;
+
+            ref.orderByChild("tagname").equalTo(search_str).on("child_added", function(snapshot) {
+                //Results pushed into results array
+                results.push(snapshot.val());
+
+                console.log("Search Results...");
+                console.log(results);
+            });
+        });
+
+    </script>
+</body>
+
+</html>
