@@ -24,7 +24,7 @@
 
             var search_str = document.getElementById("searchBar").value;
 
-            performSearch(search_str).done(printResults);
+            performSearch(search_str).done(displayResults);
         });
 
 
@@ -35,10 +35,48 @@
             // Clear previous results
             results = [];
 
+            // escape characters of usage
+            var search_map = {
+                '<': '',
+                '>': '',
+                '\n': '<br>'
+            }
+            console.log("before");
+            console.log(search_str);
+
+            search_str = search_str.replace(/<|>|\n/gi, function(matched) {
+                    return search_map[matched];
+            });
+
+            console.log("after");
+            console.log(search_str);
+
             //Perform query (this is performed multiple times for each result)
             ref.orderByChild("tagname").equalTo(search_str).on("child_added", function(snapshot) {
+                
+                var snap_result = snapshot.val();
+
+                /*-----------------------------------------*/
+                /* Only relevant to index.html & search.js */
+
+                // escape characters of usage
+                var map = {
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    '\n': '<br>'
+                }
+
+                var code = snap_result.textarea;
+
+                code = code.replace(/<|>|\n/gi, function(matched) {
+                    return map[matched];
+                });
+
+                snap_result.textarea = code;
+                /*-----------------------------------------*/
+
                 //Results pushed into results array
-                results.push(snapshot.val());
+                results.push(snap_result);
             });
 
             setTimeout(function () {
@@ -51,14 +89,24 @@
         };
 
         // after performSearch is done
-        var printResults = function () {
-            if(results.length === 0) {
+        var displayResults = function() {
+            if (results.length === 0) {
                 console.log("No matches found.");
-            } else {
-                console.log("Search results found.");
+            } else if (results.length > 1) {
+                console.log("Multiple results found.");
                 console.log(results);
+            } else {
+                // Philip search test
+                console.log(results);
+
+                /*var html = createTemplate('templates/snipp_tmpl.html', results[0]);
+                $('#loader').attr('class', 'not-visible');
+                $('hr').attr('class', 'visible');
+                $('#result-field').attr('class', 'visible');
+                $('#result').html(html);
+                bindFavoriteOps();*/
             }
-        };
+        }
 
     </script>
 </body>
