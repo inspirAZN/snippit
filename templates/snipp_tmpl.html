@@ -1,0 +1,39 @@
+<div class="snipp-card">
+    <div class="snipp-card-wrapper">
+        <button class="fav-button">Favorite</button>
+        <h3><%this.tagname%></h3>
+        <!-- code snippet -->
+        <div class="code-container">
+            <button onclick="copyToClipboard()">Copy</button>
+            <code>
+                <%this.textarea%>                    
+            </code>
+        </div>
+        <!-- end code -->
+        <!-- toggle details -->
+        <input type="checkbox" name="details-toggle" id="details-toggle">
+        <label for="details-toggle"></label>
+        <!-- details shown and hidden on button toggle-->
+        <div class="details">
+            <dl>
+                <dt>Type</dt>
+                <dd><%this.type%></dd>
+                <dt>Definition</dt>
+                <dd><%this.definition%></dd>
+                <dt>Attributes and Values<small></small></dt>
+                <dd class="attributes">
+                    <%for(var attribute in this.attributes) {%>
+                        <ul>
+                            <%this.attributes[attribute].name%> = 
+                            <%for(var value in this.attributes[attribute].values) {%>
+                                <li><%this.attributes[attribute].values[value]%></li>
+                            <%}%>
+                        </ul>
+                    <%}%>
+                </dd>
+
+            </dl>
+        </div>
+    </div>
+</div>
+

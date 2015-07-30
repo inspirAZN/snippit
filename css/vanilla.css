@@ -338,7 +338,27 @@ main hr {
 }
 
 .snipp-card .details dl dt {
-    font-weight: bold;
+    font-weight: bolder;
+    text-transform: capitalize;
+    font-size: 1.2em;
+    text-decoration: underline;
+}
+.snipp-card .details dl dd {
+    font-weight: lighter;
+    text-indent: 15px;
+}
+
+.snipp-card .details dl dd ul{
+    font-size: 1.1em;
+    text-indent: 15px;
+    text-transform: uppercase;
+}
+
+.snipp-card .details dl dd ul li{
+    display: inline-block;
+    font-style: italic;
+    text-transform: lowercase;
+    font-weight: lighter;
 }
 
 #details-toggle + label {

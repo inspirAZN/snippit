@@ -30,27 +30,7 @@
             <h2>Favorites</h2>
             <div class="favorites-cards">
                 <ul>
-                    <!-- <li>
-                        <div class="snippit-dropzone">
-                            Drag and Drop to Favorite
-                        </div>
-                    </li> -->
-                    <!-- <li class="snippit">
-                        <div class="snippit-shortcut">
-                            <span class="term">&lt; Term &gt;</span>
-                            <ul class="actions">
-                                <li>
-                                    <a href="searchResults.html">View</a>
-                                </li>
-                                <li>
-                                    <a href="#">Copy</a>
-                                </li>
-                                <li>
-                                    <a href="#">&times;</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li> -->
+                    <!-- populated with favorite templates -->
                 </ul>
             </div>
         </div>
@@ -94,36 +74,6 @@
             <div id="result-field" class="visible">
                 <h2>Result:</h2>
                 <!-- snipp card -->
-                <div class="snipp-card">
-                    <div class="snipp-card-wrapper">
-                        <button class="fav-button">Favorite</button>
-                        <h3>Searched</h3>
-                        <!-- code snippet -->
-                        <div class="code-container">
-                            <button onclick="copyToClipboard()">Copy</button>
-                            <code>
-                                &lt;!-- This is some code usage --&gt;
-                                <br>
-                                &lt;term&gt; Some usage of term &lt;/term&gt;
-                            </code>
-                        </div>
-                        <!-- end code -->
-                        <!-- toggle details -->
-                        <input type="checkbox" name="details-toggle" id="details-toggle">
-                        <label for="details-toggle"></label>
-                        <!-- details shown and hidden on button toggle-->
-                        <div class="details">
-                            <dl>
-                                <dt>Type</dt>
-                                <dd>This is the type of the term.</dd>
-                                <dt>Definition</dt>
-                                <dd>This is the definition of the term</dd>
-                                <!-- <dt>Source</dt>
-                                <dd><a href="#" target="_blank">w3schools</a></dd> -->
-                            </dl>
-                        </div>
-                    </div>
-                </div>
                 <!-- end snipp card -->
                 <!-- Other Sources -->
                 <!-- <div class="results-list">
@@ -151,13 +101,43 @@
         </section>
     </main>
     <script src="js/jquery-1.11.3.min.js"></script>
-    <script>
-    // var db = new Firebase('https://incandescent-heat-9502.firebaseio.com/');
-    </script>
+    <script src="js/vanillabars.js"></script>
     <script src="js/touch_detect.js"></script>
     <script src="js/favorite_cntrl.js"></script>
     <script src="js/copy.js"></script>
     <script src="js/search.js"></script>
+    <script>
+    // testing snipp template
+    var testObj = {
+        'attributes': [
+            {
+                'name': 'align',
+                'values': [
+                    'left', 
+                    'right',
+                    'center'
+                ]
+            },
+            {
+                'name': 'something',
+                'values': [
+                    'one', 
+                    'thing',
+                    'another'
+                ]
+            },
+        ],
+        'definition': 'this is some string definition',
+        'tagname': 'josephelement',
+        'textarea': '<!-- this is a comment \n wowowo --> need to do some escaping later',
+        'type': 'made up'
+    };
+
+    var html = createTemplate('templates/snipp_tmpl.html', testObj);
+    $('#result-field').append(html);
+
+
+    </script>
 </body>
 
 </html>

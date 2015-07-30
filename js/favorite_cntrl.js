@@ -40,14 +40,14 @@ $(function() {
 		if( !fromStorage ) {
 			className += ' new';
 		}
-		var snipp = '<li class="'+className+'">';
-			snipp += '<div class="snippit-shortcut">';
-			snipp += '<span class="term">' + tag_name + '</span>';
-			snipp += '<ul class="actions">';
-			snipp += '<li><a href="#" class="view-this">View</a></li>';
-			snipp += '<li><a href="#" class="copy-this">Copy</a></li>';
-			snipp += '<li><a href="#" class="delete-this">&times;</a></li>';
-			snipp += '</ul></div></li>';
+
+        // values to populate template
+        var options = {
+            'className': className,
+            'tag_name': tag_name
+        };
+		
+        var snipp = createTemplate('templates/favorite_tmpl.html', options);
 
 		$('.favorites-cards ul').append(snipp);
 
@@ -129,10 +129,12 @@ $(function() {
 
 
             }
-        } else {
+        }
+        if( $('#favorites-bar ul li').size() < 1 ) {
         	// no favorites
+            var message = createTemplate(no_favs, null);
         	$('#favorites-bar').addClass('no-favorites');
-        	$('#favorites-bar ul').append(no_favs);
+        	$('#favorites-bar ul').append(message);
         } 
 
     } else {
