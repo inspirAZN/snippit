@@ -154,7 +154,7 @@ function bindFavoriteOps() {
             label.toggleClass('in');
         } else if (!this.checked && $('.snippit').hasClass('new')) {
             // the bar is closed, remove new indicators from new favorites
-            $('.snippit').toggleClass('new');
+            $('.snippit').removeClass('new');
         }
     })
 }
