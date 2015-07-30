@@ -1,6 +1,10 @@
 <div class="snipp-card">
     <div class="snipp-card-wrapper">
-        <button class="fav-button">Favorite</button>
+        <%if(localStorage.hasOwnProperty(this.tagname)){%>
+            <button class="fav-button favorited">Favorited!</button>
+        <%} else{%>
+            <button class="fav-button">Favorite</button>
+        <%}%>
         <h3><%this.tagname%></h3>
         <!-- code snippet -->
         <div class="code-container">

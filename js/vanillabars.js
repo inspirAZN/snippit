@@ -11,7 +11,7 @@ var createTemplate = function(html, options) {
         xmlhttp.send();
         // if its not a file, treat it as html string
         if(xmlhttp.status === 404) {
-            return html;
+            return href;
         }
         return xmlhttp.responseText;
     }

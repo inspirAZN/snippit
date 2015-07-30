@@ -1,60 +1,60 @@
-$(function() {
+// message if no favorites
+var no_favs = createTemplate('templates/no_favorites.html', null);
 
-	// html if no favorites
-	var no_favs = '<li>You currently have no favorites.  Search for a term and click "Favorite".</li>'
+// binds the click function after it is rendered
+function bindActions() {
+    $('.snippit-shortcut .delete-this').click(function(ev) {
+        ev.preventDefault();
+        // delete from local storage
+        var tag_name = $(this).closest('.snippit-shortcut').children('.term').text();
+        localStorage.removeItem(tag_name);
+        // remove from the favortites bar
+        $(this).closest('.snippit').remove();
+        if ($('#favorites-bar .fav-list li').length === 0) {
+            $('#favorites-bar .fav-list').append(no_favs);
+            $('#favorites-bar').addClass('no-favorites');
+        }
+    });
 
-	// binds the click function after it is rendered
-	function bindActions() {
-		$('.snippit-shortcut .delete-this').click(function(ev) {
-			ev.preventDefault();
-			// delete from local storage
-			var tag_name = $(this).closest('.snippit-shortcut').children('.term').text();
-			localStorage.removeItem(tag_name);
-			// remove from the favortites bar
-			$(this).closest('.snippit').remove();
-			if( $('#favorites-bar ul li').length === 0 ) {
-				$('#favorites-bar ul').append(no_favs);
-			}
-		});
+    $('.snippit-shortcut .copy-this').click(function(ev) {
+        // get the usage from local storage
+        var tag_name = $(this).closest('.snippit-shortcut').children('.term').text();
+        // turn it into json to access fields
+        var usage = localStorage.getItem(tag_name);
+        usage = JSON.parse(usage).usage;
 
-		$('.snippit-shortcut .copy-this').click(function(ev) {
-			// get the usage from local storage
-			var tag_name = $(this).closest('.snippit-shortcut').children('.term').text();
-			// turn it into json to access fields
-			var usage = localStorage.getItem(tag_name);
-				usage = JSON.parse(usage).usage;
+        window.prompt("Press Ctrl+C or Command + Enter to Copy to clipboard", usage);
 
-		    window.prompt("Press Ctrl+C or Command + Enter to Copy to clipboard", usage);	
+    });
+}
 
-		});
-	}
+function addToBar(tag_name, fromStorage) {
+    if ($('#favorites-bar').hasClass('no-favorites')) {
+        $('#favorites-bar .fav-list li').remove();
+        $('#favorites-bar').removeClass('no-favorites');
+    }
 
-	function addToBar(tag_name, fromStorage) {
-		if($('#favorites-bar').hasClass('no-favorites')) {
-			$('#favorites-bar ul li').remove();
-			$('#favorites-bar').removeClass('no-favorites') ;
-		}
+    // snip card template
+    var className = 'snippit';
+    if (!fromStorage) {
+        className += ' new';
+    }
 
-		// snip card template
-		var className = 'snippit';
-		if( !fromStorage ) {
-			className += ' new';
-		}
+    // values to populate template
+    var options = {
+        'className': className,
+        'tag_name': tag_name
+    };
 
-        // values to populate template
-        var options = {
-            'className': className,
-            'tag_name': tag_name
-        };
-		
-        var snipp = createTemplate('templates/favorite_tmpl.html', options);
+    var snipp = createTemplate('templates/favorite_tmpl.html', options);
 
-		$('.favorites-cards ul').append(snipp);
+    $('.favorites-cards .fav-list').append(snipp);
 
-		// bind the click functions
-		bindActions();
-	}
+    // bind the click functions
+    bindActions();
+}
 
+function bindFavoriteOps() {
     $('.fav-button').click(function(ev) {
         ev.preventDefault();
         //  check if browser supports local storage
@@ -92,7 +92,7 @@ $(function() {
             // console.log(obj);
             // save to local storage
             localStorage.setItem(obj.tag_name, JSON.stringify(obj));
-            console.log(localStorage.getItem(obj.tag_name));
+
             var tag_name = obj.tag_name;
             addToBar(tag_name, false);
         }
@@ -112,34 +112,34 @@ $(function() {
             $('.snippit').toggleClass('new');
         }
     })
+}
 
-    // check if broswer supports local storage
-    if (typeof(Storage) !== "undefined") {
-        // detect if any favorites
-        if (localStorage.length > 1) {
-            for (var i = 0; i < localStorage.length; i++) {
-                var cur = localStorage.getItem(localStorage.key(i));
-                cur = JSON.parse(cur);
-                // skip firebase stuff
-                if (cur.tag_name) {
-                    
-                    // insert the card
-                    addToBar(cur.tag_name,true);
-                }
+// check if broswer supports local storage
+if (typeof(Storage) !== "undefined") {
+    // detect if any favorites
+    if (localStorage.length > 1) {
+        for (var i = 0; i < localStorage.length; i++) {
+            var cur = localStorage.getItem(localStorage.key(i));
+            cur = JSON.parse(cur);
+            // skip firebase stuff
+            if (cur.tag_name) {
 
-
+                // insert the card
+                addToBar(cur.tag_name, true);
             }
-        }
-        if( $('#favorites-bar ul li').size() < 1 ) {
-        	// no favorites
-            var message = createTemplate(no_favs, null);
-        	$('#favorites-bar').addClass('no-favorites');
-        	$('#favorites-bar ul').append(message);
-        } 
 
-    } else {
-        // if not, remove favorite buttons and notify user in favorite bar
-        alert('Local storage doesn\'t exists');
+
+        }
+    }
+    if ($('#favorites-bar .fav-list li').size() < 1) {
+        // no favorites
+        $('#favorites-bar').addClass('no-favorites');
+        $('#favorites-bar ul').append(no_favs);
     }
 
-});
+} else {
+    // if not, remove favorite buttons and notify user in favorite bar
+    alert('Local storage doesn\'t exists');
+}
+
+bindFavoriteOps();
