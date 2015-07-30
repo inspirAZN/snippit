@@ -11,27 +11,54 @@
 <body>
 
 <form>
-    <input type="text" id="searchBar" name="searchBar" placeholder="Enter search term.">
+    <input type="text" id="searchBar" name="searchBar" placeholder="Enter search term." autofocus>
 </form>
 
     <script>
         var ref = new Firebase('https://snippit134.firebaseio.com/');
         var results = [];
 
+        // Search input submitted
         $('form').submit(function(event) {
             event.preventDefault();
-            results = [];
 
             var search_str = document.getElementById("searchBar").value;
 
+            performSearch(search_str).done(printResults);
+        });
+
+
+        var performSearch = function (search_str) {
+            // create a deferred object
+            var r = $.Deferred();
+
+            // Clear previous results
+            results = [];
+
+            //Perform query (this is performed multiple times for each result)
             ref.orderByChild("tagname").equalTo(search_str).on("child_added", function(snapshot) {
                 //Results pushed into results array
                 results.push(snapshot.val());
-
-                console.log("Search Results...");
-                console.log(results);
             });
-        });
+
+            setTimeout(function () {
+            // and call `resolve` on the deferred object, once you're done
+            r.resolve();
+            }, 500);
+
+            // return the deferred object
+            return r;
+        };
+
+        // after performSearch is done
+        var printResults = function () {
+            if(results.length === 0) {
+                console.log("No matches found.");
+            } else {
+                console.log("Search results found.");
+                console.log(results);
+            }
+        };
 
     </script>
 </body>
