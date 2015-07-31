@@ -21,9 +21,7 @@
         // Search input submitted
         $('form').submit(function(event) {
             event.preventDefault();
-
             var search_str = document.getElementById("searchBar").value;
-
             performSearch(search_str).done(displayResults);
         });
 
@@ -35,54 +33,41 @@
             // Clear previous results
             results = [];
 
-            // escape characters of usage
+            /* Allow <tag> search */
             var search_map = {
                 '<': '',
                 '>': '',
                 '\n': '<br>'
             }
-            console.log("before");
-            console.log(search_str);
-
             search_str = search_str.replace(/<|>|\n/gi, function(matched) {
                     return search_map[matched];
             });
 
-            console.log("after");
-            console.log(search_str);
 
             //Perform query (this is performed multiple times for each result)
+            /*** TAG NAME ***/
             ref.orderByChild("tagname").equalTo(search_str).on("child_added", function(snapshot) {
                 
                 var snap_result = snapshot.val();
 
-                /*-----------------------------------------*/
-                /* Only relevant to index.html & search.js */
-
-                // escape characters of usage
-                var map = {
-                    '<': '&lt;',
-                    '>': '&gt;',
-                    '\n': '<br>'
-                }
-
-                var code = snap_result.textarea;
-
-                code = code.replace(/<|>|\n/gi, function(matched) {
-                    return map[matched];
-                });
-
-                snap_result.textarea = code;
-                /*-----------------------------------------*/
-
-                //Results pushed into results array
-                results.push(snap_result);
+                pushToResults(snap_result);
             });
+
+            /*** ATTRIBUTES ***/
+            ref.on('child_added', function(father) {
+                var fatherKeyValue = father.val(); // Object
+                father.ref().on('child_added', function(child) {
+                    child.ref().orderByChild("name").equalTo("download").on('child_added', function(grandchildSnap) {
+                        console.log(fatherKeyValue);
+                    });
+                });
+            });
+            // End of Queries
 
             setTimeout(function () {
             // and call `resolve` on the deferred object, once you're done
             r.resolve();
-            }, 500);
+            }, 1000);
 
             // return the deferred object
             return r;
@@ -106,6 +91,26 @@
                 $('#result').html(html);
                 bindFavoriteOps();*/
             }
+        }
+
+        var pushToResults = function(snap_result) {
+            /* Prevent cross-site scripting */
+            var map = {
+                '<': '&lt;',
+                '>': '&gt;',
+                '\n': '<br>'
+            }
+
+            var code = snap_result.textarea;
+
+            code = code.replace(/<|>|\n/gi, function(matched) {
+                return map[matched];
+            });
+
+            snap_result.textarea = code;
+
+            //Results pushed into results array
+            results.push(snap_result);
         }
 
     </script>
