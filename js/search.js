@@ -159,7 +159,7 @@ $(function() {
     }).on('keyup', function(e) {
         setTimeout( function() {
             $('#suggestor').removeClass('visible');
-        }, 3000)
+        }, 3500)
     });
 
     function refreshRef(list) {
