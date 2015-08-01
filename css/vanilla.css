@@ -306,6 +306,15 @@ main hr {
     line-height: 20px;
 }
 
+.snipp-card.none-found {
+    background-color: #f1c40f;
+    text-align: center;
+}
+
+.snipp-card.none-found h4{
+    font-size: 3em;
+}
+
 #favorites-toggle,
 #details-toggle {
     opacity: 0;
