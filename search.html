@@ -18,6 +18,40 @@
         var ref = new Firebase('https://snippit134.firebaseio.com/');
         var results = [];
 
+          $(function() {
+    /****** Joseph LOOK AT THIS *******/
+    function log( message ) {
+      $( "<div>" ).text( message ).prependTo( "#log" );
+      $( "#log" ).scrollTop( 0 );
+    }
+ 
+    $( "#searchBar" ).autocomplete({
+      source: function( request, response ) {
+        $.ajax({
+          url: "https://snippit134.firebaseio.com",
+          dataType: "jsonp",
+          data: {
+            q: request.term
+          },
+          success: function( data ) {
+            response( data );
+          }
+        });
+      },
+      minLength: 3,
+      select: function( event, ui ) {
+        log( ui.item ?
+          "Selected: " + ui.item.label :
+          "Nothing selected, input was " + this.value);
+      },
+      open: function() {
+        $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+      },
+      close: function() {
+        $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+      }
+       /************END JOSEPH ***************/
+
         // Search input submitted
         $('form').submit(function(event) {
             event.preventDefault();
@@ -42,7 +76,7 @@
             search_str = search_str.replace(/<|>|\n/gi, function(matched) {
                     return search_map[matched];
             });
-
+         
 
             //Perform query (this is performed multiple times for each result)
             /*** TAG NAME ***/
@@ -71,6 +105,7 @@
                     });
                 });
             }
+        }
 
             // End of Queries
 

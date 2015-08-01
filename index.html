@@ -7,8 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- vanilla css version -->
     <link rel="stylesheet" type="text/css" href="css/vanilla.css">
+    <link rel="stylesheet" href = "css/autoCompltr.css">
+
     <!--<script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script> -->
     <script src='js/firebase.js'></script>
+    <script src='js/autoCompltr.js'></script>
 </head>
 
 <body>
@@ -62,7 +65,7 @@
         <!-- Results -->
         <section id="results-section" contentEditable="false" draggable="false" spellcheck="false" dir="ltr" translate="yes">
             <!-- show and hide loader -->
-            <div id="loader">
+            <div id="loader" class="not-visible">
                 <div class="loader-wrapper">
                     <div class="load-glyph">
                     </div>
@@ -78,6 +81,7 @@
                     <!-- display the result here -->
                 </section>
             </div>
+            <div id = "auto-complete"></div>
         </section>
     </main>
     <script src="js/jquery-1.11.3.min.js"></script>
