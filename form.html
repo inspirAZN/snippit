@@ -54,10 +54,10 @@
         <br>
         <br>
         <input type="submit" value="Submit">   
-        <button onclick="resetForm()">Reset</button>
         <!-- <button onClick="Submit()"> Submit </button> -->
     </form>
-
+    <button onclick="resetForm()">Reset</button>
+    <br>
     <span id='modeSpan'>Add Mode - You are creating new data.</span>
 
     <div>
@@ -67,14 +67,7 @@
     var editMode = false;
     var editKey;
     var myDataRef = new Firebase('https://snippit134.firebaseio.com/');
-    /*var formData = ("form.login").serializeObject();
-                          // console.log(formData);  
 
-                for()    
-                var schema = {
-                    'tag_name': };
-                  var form = document.getElementsByTagName('form')[0];
-                  console.log(form); */
     $(document).ready(function() {
         console.log("ready!");
 
@@ -87,9 +80,7 @@
         $(add_button).click(function(e) { //on add input button click
             e.preventDefault();
             if (x < max_fields) { //max input box allowed
-                // x++; //text box increment
-                // $(wrapper).append('<div><input type="text" name="mytext[]"/><<a href="#" class="remove_field">Remove</a></div>'); //add input box
-                // $(wrapper2).append('<div><input type="text" name="mytext[]2"/><<a href="#" class="remove_field">Remove</a></div>');
+
                 var html = '<li>Name:<input type="text" name="name' + attr_num + '">Values:<input type="text" name="value' + attr_num + '"></li>';
 
                 $('.attributes').append(html);
@@ -97,14 +88,6 @@
             }
         });
 
-        /*
-        $(wrapper).on("click", ".remove_field", function(e) { //user click on remove text
-            e.preventDefault();
-            $(this).parent('div').remove();
-            x--;
-
-        });
-        */
 
         $('form').submit(function(event) {
 
@@ -174,21 +157,10 @@
         $('form textarea[name="textarea"]').html("");
         editMode = false;
         editKey = null;
-        $("#modeSpan").textContent="Add Mode - You are creating new data.";
+        $("#modeSpan").text("Add Mode - You are creating new data.");
 	}
 
 
-
-
-    /*var formData = {
-        'tagname'       $('input[tagname=tagname]').val(),
-        'type'          $('input[type=type]').val(),
-        'definition'    $('input[definition=definition]').val(),
-        'textarea'      $('input[textarea=textarea]').val(),
-        'keyword'       $('input[keyword=keyword]').val(),
-        'attribute'     $('input[attribute=attribute]').val(),
-
-    };*/
 
     /* Read firebase */
 
@@ -231,6 +203,7 @@
         if (response == true) {
             // build the FB endpoint to the item in movies collection
             new Firebase('https://snippit134.firebaseio.com/' + key).remove();
+            resetForm();
         }
     }
 
