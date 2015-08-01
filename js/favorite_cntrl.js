@@ -68,12 +68,6 @@ function addToBar(tag_name, fromStorage) {
     bindActions();
 }
 
-function storageListerner(storageEvent) {
-    alert(storageEvent)
-}
-
-window.addEventListener('storage', storageListerner, false);
-
 function bindFavoriteOps() {
     $('.fav-button').click(function(ev) {
         ev.preventDefault();

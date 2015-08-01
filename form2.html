@@ -170,11 +170,11 @@
                 $(this).remove(); // This is your rel value
             }
         });
-        $('form').find("input[type=text], textarea").val("");
-
+        $('form').find("input[type=text]").val("");
+        $('form textarea[name="textarea"]').html("");
         editMode = false;
         editKey = null;
-        document.getElementById("modeSpan").textContent="Add Mode - You are creating new data.";
+        $("#modeSpan").textContent="Add Mode - You are creating new data.";
 	}
 
 
@@ -197,7 +197,7 @@
         for (var i = 0; i < list.length; i++) {
             lis += '<li data-key="' + list[i].key + '">' + list[i].tagname + ' [' + generateLinks(list[i].key, list[i].tagname) + ']</li>';
         };
-        document.getElementById('tagDisplay').innerHTML = lis;
+        $('#tagDisplay').html(lis);
     };
 
     // this will get fired on inital load as well as when ever there is a change in the data
@@ -273,7 +273,7 @@
                 var map = {
                     '<': '&lt;',
                     '>': '&gt;',
-                    '\n': '<br>'
+                    '\n': '\n'
                 }
 
                 var code = tagObject[prop];
@@ -288,7 +288,7 @@
                 $('input[name=' + prop + ']').val(tagObject[prop]);
             }
 
-            document.getElementById("modeSpan").textContent="Edit Mode - You must press reset to return to Add Mode.";
+            $("#modeSpan").text("Edit Mode - You must press reset to return to Add Mode.");
         }
     }
     </script>
