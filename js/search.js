@@ -12,7 +12,7 @@ $(function() {
 
     });
 
-
+    // Perform tag/keyword/attribute search using firebase queries
     var performSearch = function(search_str) {
         // drop the current card and show that loader
         dropDOM();
@@ -52,13 +52,12 @@ $(function() {
                     });
 
                     /*** KEYWORD ***/
-                    if (results.length == 0) {
-                        child.ref().orderByKey().on('child_added', function(grandchildSnap) {
-                            if (grandchildSnap.val() == search_str) {
-                                pushToResults(fatherKeyValue);
-                            }
-                        });
-                    }
+                    child.ref().orderByKey().on('child_added', function(grandchildSnap) {
+                        if (grandchildSnap.val() == search_str) {
+                            pushToResults(fatherKeyValue);
+                        }
+                    });
+                    
                 });
             });
         }
@@ -75,7 +74,10 @@ $(function() {
         return r;
     };
 
+    // Display Results onto page
     var displayResults = function() {
+        //Remove Duplicates from Results
+        results = removeDuplicates(results);
 
         var html;
         var numresults = results.length;
@@ -119,6 +121,7 @@ $(function() {
 
     }
 
+    // Pushes results of query to Results array
     var pushToResults = function(snap_result) {
         /* Prevent cross-site scripting */
         var map = {
@@ -138,9 +141,6 @@ $(function() {
 
         //Results pushed into results array
         results.push(snap_result);
-        //console.log(snap_result);
-
-
     }
 
     // suggest some tags
@@ -162,8 +162,6 @@ $(function() {
         }, 3000)
     });
 
-
-
     function refreshRef(list) {
         var lis = '';
         lis += '<li class="suggestions"><b>Suggestions</b></li>';
@@ -173,6 +171,7 @@ $(function() {
         $('#suggestor').html(lis);
     };
 
+    // Retrieve data from firebase; creates list[{tagname: tagname, key: key}]
     // this will get fired on inital load as well as when ever there is a change in the data
     ref.on("value", function(snapshot) {
         var data = snapshot.val();
@@ -192,6 +191,21 @@ $(function() {
         refreshRef(list);
     });
 
+    // Remove Duplicates in Results Array
+    function removeDuplicates(arr) {
+        var n, y, x, i, r;
+        r = [];
+        o: for (i = 0, n = arr.length; i < n; i++) {
 
+            for (x = 0, y = r.length; x < y; x++) {
+
+                if (r[x].tagname == arr[i].tagname) {
+                    continue o;
+                }
+            }
+            r.push(arr[i]);
+        }
+        return r;
+    };
 
 });

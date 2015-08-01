@@ -235,7 +235,8 @@
                 for (var j = 0; j < liElems.length; j++) {
                     var inputElems = $(liElems[j]).children('input');
                     // set the first input to the name
-                    console.log(tagObject[prop][j].values)
+                    console.log(liElems);
+                    console.log(tagObject[prop][j].values);
                     inputElems[0].value = tagObject[prop][j].name;
                     inputElems[1].value = tagObject[prop][j].values.join();
                 }
