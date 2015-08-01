@@ -178,7 +178,7 @@
     function refreshUI(list) {
         var lis = '';
         for (var i = 0; i < list.length; i++) {
-            lis += '<li data-key="' + list[i].key + '">' + list[i].tagname + ' [' + genLinks(list[i].key, list[i].tagname) + ']</li>';
+            lis += '<li data-key="' + list[i].key + '">' + list[i].tagname + ' [' + generateLinks(list[i].key, list[i].tagname) + ']</li>';
         };
         document.getElementById('tagDisplay').innerHTML = lis;
     };
@@ -202,31 +202,36 @@
         refreshUI(list);
     });
 
-    function genLinks(key, mvName) {
+    function generateLinks(key, tagname) {
         var links = '';
-        //links += '<a href="javascript:edit(\'' + key + '\',\'' + mvName + '\')">Edit</a> | ';
-        links += '<a href="javascript:del(\'' + key + '\',\'' + mvName + '\')">Delete</a>';
+        links += '<a href="javascript:editTag(\'' + key + '\')">Edit</a> | ';
+        links += '<a href="javascript:deleteTag(\'' + key + '\',\'' + tagname + '\')">Delete</a>';
         return links;
     };
  
-    function del(key, mvName) {
-        var response = confirm("Are certain about removing \"" + mvName + "\" from the list?");
+    function deleteTag(key, tagname) {
+        var response = confirm("Are you sure you want to remove \"" + tagname + "\" ?");
         if (response == true) {
             // build the FB endpoint to the item in movies collection
             new Firebase('https://snippit134.firebaseio.com/' + key).remove();
         }
     }
 
-    /*function edit(key, mvName) {
-        var movieName = prompt("Update the movie name", mvName); // to keep things simple and old skool :D
+    function editTag(key, tagname) {
+    	var tagObject;
+    	new Firebase('https://snippit134.firebaseio.com/' + key).on("value", function(snapshot) {
+    		tagObject = snapshot.val();
+    	});
+    	console.log(tagObject);
+        /*var movieName = prompt("Update the movie name", tagname); // to keep things simple and old skool :D
         if (movieName && movieName.length > 0) {
             // build the FB endpoint to the item in movies collection
             var updateMovieRef = buildEndPoint(key);
             updateMovieRef.update({
                 name: movieName
             });
-        }
-    }*/
+        }*/
+    }
 
     </script>
 </body>
