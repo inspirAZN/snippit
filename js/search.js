@@ -9,6 +9,7 @@ $(function() {
         var search_str = $('#search :text').val().toLowerCase();
 
         performSearch(search_str).done(displayResults);
+
     });
 
 
@@ -141,5 +142,56 @@ $(function() {
 
 
     }
+
+    // suggest some tags
+    $('#search input:text').on('input', function(e) {
+        $('#suggestor').addClass('visible');
+        var value = $(this).val();
+        $('#suggestor > li').each(function() {
+            if($(this).text().search(value) > -1 ||
+                $(this).hasClass('suggestions')) {
+                $(this).show();
+            } 
+            else {
+                $(this).hide();
+            }
+        })        
+    }).on('keyup', function(e) {
+        setTimeout( function() {
+            $('#suggestor').removeClass('visible');
+        }, 3000)
+    });
+
+
+
+    function refreshRef(list) {
+        var lis = '';
+        lis += '<li class="suggestions"><b>Suggestions</b></li>';
+        for (var i = 0; i < list.length; i++) {
+            lis += '<li onclick="viewThis(\''+list[i].tagname+'\')">' + list[i].tagname + '</li>';
+        };
+        $('#suggestor').html(lis);
+    };
+
+    // this will get fired on inital load as well as when ever there is a change in the data
+    ref.on("value", function(snapshot) {
+        var data = snapshot.val();
+        var list = [];
+        for (var key in data) {
+            if (data.hasOwnProperty(key)) {
+                tagname = data[key].tagname ? data[key].tagname : '';
+                if (tagname.trim().length > 0) {
+                    list.push({
+                        tagname: tagname,
+                        key: key
+                    })
+                }
+            }
+        }
+        // refresh the UI
+        refreshRef(list);
+    });
+
+
 
 });
