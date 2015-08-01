@@ -47,21 +47,31 @@
             //Perform query (this is performed multiple times for each result)
             /*** TAG NAME ***/
             ref.orderByChild("tagname").equalTo(search_str).on("child_added", function(snapshot) {
-                
                 var snap_result = snapshot.val();
-
                 pushToResults(snap_result);
             });
 
-            /*** ATTRIBUTES ***/
-            ref.on('child_added', function(father) {
-                var fatherKeyValue = father.val(); // Object
-                father.ref().on('child_added', function(child) {
-                    child.ref().orderByChild("name").equalTo("download").on('child_added', function(grandchildSnap) {
-                        console.log(fatherKeyValue);
+            if(results.length == 0) {
+                /*** ATTRIBUTES ***/
+                ref.on('child_added', function(father) {
+                    var fatherKeyValue = father.val(); // Object
+                    father.ref().on('child_added', function(child) {
+                        child.ref().orderByChild("name").equalTo(search_str).on('child_added', function(grandchildSnap) {
+                            pushToResults(fatherKeyValue);
+                        });
+
+                        /*** KEYWORD ***/
+                        if(results.length == 0) {
+                            child.ref().orderByKey().on('child_added', function(grandchildSnap) {
+                                if(grandchildSnap.val() == "text") {
+                                    pushToResults(fatherKeyValue);
+                                }
+                            });
+                        }
                     });
                 });
-            });
+            }
+
             // End of Queries
 
             setTimeout(function () {
@@ -111,6 +121,7 @@
 
             //Results pushed into results array
             results.push(snap_result);
+            //console.log(snap_result);
         }
 
     </script>
