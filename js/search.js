@@ -6,19 +6,16 @@ $(function() {
 
     $('#search').submit(function(e) {
         e.preventDefault();
-        // show the loader
-        $('#loader').attr('class', 'visible');
-        $('#banner h1').css('line-height', '80px');
-
-        // ajax call.  remove loader and display result after
         var search_str = $('#search :text').val();
         performSearch(search_str).done(displayResults);
-
-        console.log('searching for ' + search_str);
     });
 
 
     var performSearch = function(search_str) {
+        // drop the current card and show that loader
+        dropDOM();
+        showLoader();
+
         // create a deferred object
         var r = $.Deferred();
 
@@ -28,7 +25,7 @@ $(function() {
         //Perform query (this is performed multiple times for each result)
         ref.orderByChild("tagname").equalTo(search_str).on("child_added", function(snapshot) {
 
-        	var result = snapshot.val();
+            var result = snapshot.val();
 
             // escape characters of usage
             var map = {
@@ -45,6 +42,7 @@ $(function() {
 
             result.textarea = code;
             results.push(result);
+
         });
 
         setTimeout(function() {
@@ -52,35 +50,42 @@ $(function() {
             r.resolve();
         }, 500);
 
+
         // return the deferred object
         return r;
     };
 
-    // after performSearch is done
-    var printResults = function() {
-        if (results.length === 0) {
-            console.log("No matches found.");
-        } else {
-            console.log("Search results found.");
-            console.log(results);
-        }
-    };
-
     var displayResults = function() {
+        hideLoader();
+        var html;
         if (results.length === 0) {
-            console.log("No matches found.");
+            html = createTemplate('templates/no_results.html', null);
         } else if (results.length > 1) {
             console.log("Multiple results found.");
             console.log(results);
         } else {
-            var html = createTemplate('templates/snipp_tmpl.html', results[0]);
-            $('#loader').attr('class', 'not-visible');
-            $('hr').attr('class', 'visible');
-            $('#result-field').attr('class', 'visible');
-            $('#result').html(html);
-            bindFavoriteOps();
+            html = createTemplate('templates/snipp_tmpl.html', results[0]);
         }
+        showDOM(html);
+        bindFavoriteOps();
     }
 
+    var showDOM = function(html) {
+        $('#result-field').removeClass('drop-out not-visible').addClass('fade-in');
+        $('#result').html(html);
+    }
+    var dropDOM = function() {
+        $('#result-field').removeClass('fade-in').addClass('drop-out');
+    }
+
+    var showLoader = function() {
+        $('#banner h1').css('line-height', '50px');
+        $('hr').attr('class', 'visible');
+        $('#loader').addClass('visible');
+    }
+
+    var hideLoader = function() {
+        $('#loader').removeClass('visible'); 
+    }
 
 });
