@@ -2,7 +2,7 @@
     <% for(var elem in this) { %>
     <li>
         <div class="wrapper">
-            <a href="#" onclick="viewThis(<%elem.tagname%>)"><%this[elem].tagname%></a>
+            <a href="#" onclick="viewThis('<%this[elem].tagname%>')"><%this[elem].tagname%></a>
             <p><%this[elem].definition%></p>
         </div>
     </li>

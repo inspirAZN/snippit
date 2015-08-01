@@ -63,7 +63,7 @@
                         /*** KEYWORD ***/
                         if(results.length == 0) {
                             child.ref().orderByKey().on('child_added', function(grandchildSnap) {
-                                if(grandchildSnap.val() == search_str) {
+                                if(grandchildSnap.val() == "text") {
                                     pushToResults(fatherKeyValue);
                                 }
                             });
