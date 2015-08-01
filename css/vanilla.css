@@ -805,8 +805,8 @@ ul.resource-list .resource figure {
 }
 
 .drop-out {
-    -webkit-animation: dropOut .5s;
-    animation: dropOut .5s;   
+    -webkit-animation: dropOut 1s;
+    animation: dropOut 1s;   
 }
 
 /* mobile responsive things */
