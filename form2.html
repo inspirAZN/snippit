@@ -24,8 +24,8 @@
         <ul class="attributes" id="attr_id">
             <li>
                 Name:
-                <input type="text" name="name" placeholder="test_attr_name_1" required> Values:
-                <input type="text" name="value" placeholder="test_attr_val_1, test_attr_val_2, test_attr_val_3" required>
+                <input type="text" name="name" id="att_first"placeholder="test_attr_name_1" required> Values:
+                <input type="text" name="value" id="att_second"placeholder="test_attr_val_1, test_attr_val_2, test_attr_val_3" required>
             </li>
         </ul>
         <button class="add_field_button">Add More Attributes</button>
@@ -148,12 +148,14 @@
 
             /* Clear inputs after submitting */
             $('#attr_id').find("input, textarea").val("");
+            $('ul.attributes li').each(function(i)
+            {
+                if(i >= 1) {
+                    $(this).remove(); // This is your rel value
+                }
+            });
             $(this).closest('form').find("input[type=text], textarea").val("");
         });
-
-
-
-
 
 
     });
@@ -176,7 +178,7 @@
     function refreshUI(list) {
         var lis = '';
         for (var i = 0; i < list.length; i++) {
-            lis += '<li data-key="' + list[i].key + '">' + list[i].tagname + '</li>';
+            lis += '<li data-key="' + list[i].key + '">' + list[i].tagname + ' [' + genLinks(list[i].key, list[i].tagname) + ']</li>';
         };
         document.getElementById('tagDisplay').innerHTML = lis;
     };
@@ -199,6 +201,32 @@
         // refresh the UI
         refreshUI(list);
     });
+
+    function genLinks(key, mvName) {
+        var links = '';
+        //links += '<a href="javascript:edit(\'' + key + '\',\'' + mvName + '\')">Edit</a> | ';
+        links += '<a href="javascript:del(\'' + key + '\',\'' + mvName + '\')">Delete</a>';
+        return links;
+    };
+ 
+    function del(key, mvName) {
+        var response = confirm("Are certain about removing \"" + mvName + "\" from the list?");
+        if (response == true) {
+            // build the FB endpoint to the item in movies collection
+            new Firebase('https://snippit134.firebaseio.com/' + key).remove();
+        }
+    }
+
+    /*function edit(key, mvName) {
+        var movieName = prompt("Update the movie name", mvName); // to keep things simple and old skool :D
+        if (movieName && movieName.length > 0) {
+            // build the FB endpoint to the item in movies collection
+            var updateMovieRef = buildEndPoint(key);
+            updateMovieRef.update({
+                name: movieName
+            });
+        }
+    }*/
 
     </script>
 </body>
