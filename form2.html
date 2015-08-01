@@ -15,6 +15,9 @@
         display: block;
         margin: 50px;
     }
+    span {
+    	color: red;
+    }
     </style>
 </head>
 
@@ -25,8 +28,8 @@
         <ul class="attributes" id="attr_id">
             <li>
                 Name:
-                <input type="text" name="name" id="att_first" placeholder="Attribute" required> Values:
-                <input type="text" name="value" id="att_second" placeholder="Value1, Value2, Value3" required>
+                <input type="text" name="name" id="att_first" placeholder="test_attr_name_1" required> Values:
+                <input type="text" name="value" id="att_second" placeholder="test_attr_val_1, test_attr_val_2, test_attr_val_3" required>
             </li>
         </ul>
         <button class="add_field_button">Add More Attributes</button>
@@ -35,28 +38,34 @@
     </div>
     <form id="myform" name="schema" class="schema" method="POST">
         Tag name:
-        <input type="text" name="tagname" placeholder="Name of the tag">
+        <input type="text" name="tagname" placeholder="figcaption">
         <br>
         <br> Type:
-        <input type="text" name="type" placeholder="HTML, HTML5">
+        <input type="text" name="type" placeholder="html5 tag">
         <br>
         <br> Definition:
-        <input type="text" name="definition" placeholder="Definition & Usage">
+        <input type="text" name="definition" value="some definition">
         <br>
         <br> Usage:
-        <textarea rows="20" cols="80" name="textarea" placeholder="Insert code here."></textarea>
+        <textarea rows="20" cols="80" name="textarea" placeholder="exact code usage"></textarea>
         <br>
         <br> Keyword:
-        <input type="text" name="keyword" placeholder="Keyword">
+        <input type="text" name="keyword" placeholder="display,graphic,wow,mmuch,css">
         <br>
         <br>
-        <input type="submit" value="Submit">
+        <input type="submit" value="Submit">   
+        <button onclick="resetForm()">Reset</button>
         <!-- <button onClick="Submit()"> Submit </button> -->
     </form>
+
+    <span id='modeSpan'>Add Mode - You are creating new data.</span>
+
     <div>
         <ul id="tagDisplay"></ul>
     </div>
     <script>
+    var editMode = false;
+    var editKey;
     var myDataRef = new Firebase('https://snippit134.firebaseio.com/');
     /*var formData = ("form.login").serializeObject();
                           // console.log(formData);  
@@ -141,21 +150,32 @@
 
             console.log(jsonArray);
 
-            /* Save data to firebase */
-            myDataRef.push(jsonArray);
+            if(!editMode) {
+            	/* Add new data to firebase */
+            	myDataRef.push(jsonArray);
+        	} else if (editMode && editKey != null){
+        		/* Update */
+            	new Firebase('https://snippit134.firebaseio.com/' + editKey).update(jsonArray);
+        	}
 
-            /* Clear inputs after submitting */
-            $('#attr_id').find("input, textarea").val("");
-            $('ul.attributes li').each(function(i) {
-                if (i >= 1) {
-                    $(this).remove(); // This is your rel value
-                }
-            });
-            $(this).closest('form').find("input[type=text], textarea").val("");
+            resetForm();
         });
-
-
     });
+
+	function resetForm() {
+		/* Clear inputs after submitting */
+        $('#attr_id').find("input, textarea").val("");
+        $('ul.attributes li').each(function(i) {
+            if (i >= 1) {
+                $(this).remove(); // This is your rel value
+            }
+        });
+        $('form').find("input[type=text], textarea").val("");
+
+        editMode = false;
+        editKey = null;
+        document.getElementById("modeSpan").textContent="Add Mode - You are creating new data.";
+	}
 
 
 
@@ -215,7 +235,13 @@
     }
 
     function editTag(key, tagname) {
-        var tagObject;
+    	var tagObject;
+
+    	// Clear form fields
+    	resetForm();
+    	editKey = key;
+    	editMode = true;
+
         new Firebase('https://snippit134.firebaseio.com/' + key).on("value", function(snapshot) {
             tagObject = snapshot.val();
         });
@@ -235,7 +261,6 @@
                 for (var j = 0; j < liElems.length; j++) {
                     var inputElems = $(liElems[j]).children('input');
                     // set the first input to the name
-                    console.log(liElems);
                     console.log(tagObject[prop][j].values);
                     inputElems[0].value = tagObject[prop][j].name;
                     inputElems[1].value = tagObject[prop][j].values.join();
@@ -262,15 +287,9 @@
             } else {
                 $('input[name=' + prop + ']').val(tagObject[prop]);
             }
+
+            document.getElementById("modeSpan").textContent="Edit Mode - You must press reset to return to Add Mode.";
         }
-        /*var movieName = prompt("Update the movie name", tagname); // to keep things simple and old skool :D
-        if (movieName && movieName.length > 0) {
-            // build the FB endpoint to the item in movies collection
-            var updateMovieRef = buildEndPoint(key);
-            updateMovieRef.update({
-                name: movieName
-            });
-        }*/
     }
     </script>
 </body>
