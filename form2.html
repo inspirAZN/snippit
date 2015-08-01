@@ -224,7 +224,7 @@
         for (var prop in tagObject) {
             console.log(prop);
             if (prop === 'attributes') {
-                console.log(tagObject[prop].length);
+                var attributes = tagObject['attributes'];
                 // add the extra buttons
                 for (var i = 0; i < tagObject[prop].length - 1; i++) {
                     $('.add_field_button').click();
@@ -238,21 +238,7 @@
                     console.log(tagObject[prop][j].values)
                     inputElems[0].value = tagObject[prop][j].name;
                     inputElems[1].value = tagObject[prop][j].values.join();
-                    // get the values array and join
-                    // var values = tagObjectArray[j].values;
-                    // console.log(values)
-                    // inputElems[1].value = values.join()
                 }
-                // for (ver i = 0: i < liElems.length; i++) {
-                //     console.log(liElems.length);
-                // }
-                // var input1 = attributes[i];
-                // set the input value to the retrieved obj data    
-                // attributes[i][0].val() = tagObject[prop][i].name;
-                // var values = tagObject[prop][i].values;
-                // console.log(input1[0])
-
-                // attributes[i][1].val() = values.join();
             } else if (prop === 'keyword') {
                 var keyrray = tagObject[prop];
                 keyrray = keyrray.join();
