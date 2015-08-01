@@ -5,7 +5,7 @@ var no_favs = createTemplate('templates/no_favorites.html', null);
 var prompted, searched = 0;
 
 function viewThis(tag_name) {
-    $('#search :text').val(tag_name);
+    $('#search :text').val(tag_name.toLowerCase());
     $('#search :submit').click();
     // just in case the favorites bar is open.. close it
     $('#favorites-toggle').prop('checked', false);

@@ -6,7 +6,7 @@ $(function() {
 
     $('#search').submit(function(e) {
         e.preventDefault();
-        var search_str = $('#search :text').val();
+        var search_str = $('#search :text').val().toLowerCase();
 
         performSearch(search_str).done(displayResults);
     });
