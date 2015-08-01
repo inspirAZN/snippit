@@ -1,3 +1,4 @@
+// copys the code usage to clipboard without access to system keyboard
 function copyToClipboard() {
     var map = {
         '&lt;': '<',

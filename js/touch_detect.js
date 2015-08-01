@@ -1,3 +1,4 @@
+// append special classes based on if there are touch screens
 (function() {
 
     // append a class to html if it is a touch screen

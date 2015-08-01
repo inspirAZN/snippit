@@ -1,3 +1,5 @@
+// controls all operations with adding and editing favorites
+
 // message if no favorites
 var no_favs = createTemplate('templates/no_favorites.html', null);
 

@@ -1,3 +1,5 @@
+// handles all search queries and ui manipulation
+
 // wait for the page to load first
 $(function() {
 
@@ -57,7 +59,7 @@ $(function() {
                             pushToResults(fatherKeyValue);
                         }
                     });
-                    
+
                 });
             });
         }
@@ -148,16 +150,15 @@ $(function() {
         $('#suggestor').addClass('visible');
         var value = $(this).val();
         $('#suggestor > li').each(function() {
-            if($(this).text().search(value) > -1 ||
+            if ($(this).text().search(value) > -1 ||
                 $(this).hasClass('suggestions')) {
                 $(this).show();
-            } 
-            else {
+            } else {
                 $(this).hide();
             }
-        })        
+        })
     }).on('keyup', function(e) {
-        setTimeout( function() {
+        setTimeout(function() {
             $('#suggestor').removeClass('visible');
         }, 3500)
     });
@@ -166,7 +167,7 @@ $(function() {
         var lis = '';
         lis += '<li class="suggestions"><b>Suggestions</b></li>';
         for (var i = 0; i < list.length; i++) {
-            lis += '<li onclick="viewThis(\''+list[i].tagname+'\')">' + list[i].tagname + '</li>';
+            lis += '<li onclick="viewThis(\'' + list[i].tagname + '\')">' + list[i].tagname + '</li>';
         };
         $('#suggestor').html(lis);
     };

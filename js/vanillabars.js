@@ -10,7 +10,7 @@ var createTemplate = function(html, options) {
         xmlhttp.open("GET", href, false);
         xmlhttp.send();
         // if its not a file, treat it as html string
-        if(xmlhttp.status === 404) {
+        if (xmlhttp.status === 404) {
             return href;
         }
         return xmlhttp.responseText;

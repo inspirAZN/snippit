@@ -15,8 +15,9 @@
         display: block;
         margin: 50px;
     }
+    
     span {
-    	color: red;
+        color: red;
     }
     </style>
 </head>
@@ -53,13 +54,12 @@
         <input type="text" name="keyword" placeholder="display,graphic,wow,mmuch,css">
         <br>
         <br>
-        <input type="submit" value="Submit">   
+        <input type="submit" value="Submit">
         <!-- <button onClick="Submit()"> Submit </button> -->
     </form>
     <button onclick="resetForm()">Reset</button>
     <br>
     <span id='modeSpan'>Add Mode - You are creating new data.</span>
-
     <div>
         <ul id="tagDisplay"></ul>
     </div>
@@ -133,20 +133,20 @@
 
             console.log(jsonArray);
 
-            if(!editMode) {
-            	/* Add new data to firebase */
-            	myDataRef.push(jsonArray);
-        	} else if (editMode && editKey != null){
-        		/* Update */
-            	new Firebase('https://snippit134.firebaseio.com/' + editKey).update(jsonArray);
-        	}
+            if (!editMode) {
+                /* Add new data to firebase */
+                myDataRef.push(jsonArray);
+            } else if (editMode && editKey != null) {
+                /* Update */
+                new Firebase('https://snippit134.firebaseio.com/' + editKey).update(jsonArray);
+            }
 
             resetForm();
         });
     });
 
-	function resetForm() {
-		/* Clear inputs after submitting */
+    function resetForm() {
+        /* Clear inputs after submitting */
         $('#attr_id').find("input, textarea").val("");
         $('ul.attributes li').each(function(i) {
             if (i >= 1) {
@@ -158,7 +158,7 @@
         editMode = false;
         editKey = null;
         $("#modeSpan").text("Add Mode - You are creating new data.");
-	}
+    }
 
 
 
@@ -208,12 +208,12 @@
     }
 
     function editTag(key, tagname) {
-    	var tagObject;
+        var tagObject;
 
-    	// Clear form fields
-    	resetForm();
-    	editKey = key;
-    	editMode = true;
+        // Clear form fields
+        resetForm();
+        editKey = key;
+        editMode = true;
 
         new Firebase('https://snippit134.firebaseio.com/' + key).on("value", function(snapshot) {
             tagObject = snapshot.val();

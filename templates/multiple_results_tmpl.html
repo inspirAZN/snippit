@@ -1,10 +1,14 @@
 <ul class="multiple-results">
     <% for(var elem in this) { %>
-    <li>
-        <div class="wrapper">
-            <a href="#" onclick="viewThis('<%this[elem].tagname%>')"><%this[elem].tagname%></a>
-            <p><%this[elem].definition%></p>
-        </div>
-    </li>
-    <% } %>
+        <li>
+            <div class="wrapper">
+                <a href="#" onclick="viewThis('<%this[elem].tagname%>')">
+                    <%this[elem].tagname%>
+                </a>
+                <p>
+                    <%this[elem].definition%>
+                </p>
+            </div>
+        </li>
+        <% } %>
 </ul>
