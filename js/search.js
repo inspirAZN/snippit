@@ -17,7 +17,6 @@ $(function() {
         dropDOM();
         showLoader();
 
-
         // create a deferred object
         var r = $.Deferred();
 
@@ -33,7 +32,6 @@ $(function() {
         search_str = search_str.replace(/<|>|\n/gi, function(matched) {
             return search_map[matched];
         });
-
 
         //Perform query (this is performed multiple times for each result)
         /*** TAG NAME ***/
@@ -79,18 +77,22 @@ $(function() {
     var displayResults = function() {
 
         var html;
-        if (results.length === 0) {
+        var numresults = results.length;
+        var count = '(' + numresults;
+        if (numresults === 0) {
             html = createTemplate('templates/no_results.html', null);
-        } else if (results.length > 1) {
-
-            console.log(results);
-
+            count += ' results)';
+        } else if (numresults > 1) {
+            html = createTemplate('templates/multiple_results_tmpl.html', results);
+            count += ' results)';
         } else {
             html = createTemplate('templates/snipp_tmpl.html', results[0]);
-
+            count += ' result)';
         }
         hideLoader();
         showDOM(html);
+        $('#numresults').html(count);
+        console.log($('#numresults').html());
         bindFavoriteOps();
     }
 

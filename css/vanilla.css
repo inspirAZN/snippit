@@ -237,11 +237,28 @@ main hr {
 
 /* results section */
 
+h2 small {
+    color: #cccccc;
+    font-weight: lighter;
+    font-size: small;
+}
+
 #results-section {
     display: block;
     width: 90%;
     position: relative;
     margin: auto
+}
+
+#result .multiple-results {
+    list-style: none;
+}
+
+#result .multiple-results li {
+    margin: 15px 0;
+    background-color: #eeeeee;
+    padding: 10px;
+    overflow: hidden;
 }
 
 
@@ -398,14 +415,14 @@ main hr {
 
 
 /* results-list */
-
+/*
 .results-list ul {
     list-style: none;
 }
 
 .results-list ul li {
     margin: 15px 0;
-}
+}*/
 
 
 /* favorites */
